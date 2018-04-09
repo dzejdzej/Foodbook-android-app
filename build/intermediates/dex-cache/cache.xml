@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/babic/git/Foodbook-android-app/foodbook/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="/Users/babic/git/Foodbook-android-app/foodbook/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-22.2.1_bd08f4050a9f429784a2c0cdcf22162306a6b4bc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/babic/AndroidStudioProjects/DemoApp/foodbook/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="/Users/babic/AndroidStudioProjects/DemoApp/foodbook/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-22.2.1_9860b03559e9ed9c2285b43de19970af814025b2/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/babic/AndroidStudioProjects/DemoApp/foodbook/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="/Users/babic/AndroidStudioProjects/DemoApp/foodbook/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-22.2.1_22ed0a291811a18cfe9fabe1ed10d90be58d3c67/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/babic/git/Foodbook-android-app/foodbook/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0bd6f84a38f08aba687ce98c194c8e8344e819c4">
+        <dex dex="/Users/babic/git/Foodbook-android-app/foodbook/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_ef3bb4abbd390ea0e5ecf313e7e1db9d21aebaed/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/babic/git/Foodbook-android-app/foodbook/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="/Users/babic/git/Foodbook-android-app/foodbook/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-22.2.1_637a2d23ce0c89dc82cc61fc9007abd9e9aeb223/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/babic/AndroidStudioProjects/DemoApp/foodbook/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="48cceda8d0e043bc8462ef7dfb9b788d29d34bb9">
+        <dex dex="/Users/babic/AndroidStudioProjects/DemoApp/foodbook/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_8ca8d0f45f29f97d33531736292b440a34f7142a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/babic/git/Foodbook-android-app/foodbook/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="/Users/babic/git/Foodbook-android-app/foodbook/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-22.2.1_56da93c0f0008dae1d8c5c73c41f26f5d6788990/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/babic/AndroidStudioProjects/DemoApp/foodbook/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="0bcc0c0f45f6a6cfab4931461db529ceb8717187">
+        <dex dex="/Users/babic/AndroidStudioProjects/DemoApp/foodbook/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_34dde98ae60e703749c405105316489701726ed5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/babic/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="/Users/babic/AndroidStudioProjects/DemoApp/foodbook/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-22.2.1_1ec6d702abac263158b5d7ed0bdb8b579830c0dd/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/babic/AndroidStudioProjects/DemoApp/foodbook/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="/Users/babic/AndroidStudioProjects/DemoApp/foodbook/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-22.2.1_1df6069530d8b4fdb8a3c883ae56f4693b14938e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/babic/git/Foodbook-android-app/foodbook/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.2"
+        sha1="9ce317390d294d431627da4c29e11f384df2caf5">
+        <dex dex="/Users/babic/git/Foodbook-android-app/foodbook/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_f910e23e5c3d19fa3ec08450b2361b3dd3e90afa/classes.dex" />
+    </item>
+
+</items>
