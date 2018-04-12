@@ -1,4 +1,4 @@
-package com.robpercival.demoapp;
+package com.robpercival.demoapp.activities;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -10,16 +10,38 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.robpercival.demoapp.R;
+import com.robpercival.demoapp.adapters.RowRestaurantAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
+    private ListView restaurantListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setupDrawerAndToolbar();
+        populateListView();
+    }
+
+    private void populateListView() {
+        restaurantListView = findViewById(R.id.restaurantListView);
+
+        restaurantListView = findViewById(R.id.restaurantListView);
+        restaurantListView.setAdapter(new RowRestaurantAdapter(this, new String[] { "data1",
+                "data2", "data3", "data4" }));
+    }
+
+    private void setupDrawerAndToolbar() {
         Toolbar toolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
 

@@ -1,9 +1,11 @@
-package com.robpercival.demoapp;
+package com.robpercival.demoapp.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.robpercival.demoapp.R;
 
 public class SplashActivity extends Activity {
 
