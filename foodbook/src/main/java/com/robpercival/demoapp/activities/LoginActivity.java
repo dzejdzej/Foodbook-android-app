@@ -21,7 +21,7 @@ public class LoginActivity extends Activity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gotoLoginActivity();
+                gotoSearchActivity();
             }
         });
 
@@ -35,9 +35,9 @@ public class LoginActivity extends Activity {
         });
     }
 
-    private void gotoLoginActivity(){
-        Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
-        LoginActivity.this.startActivity(loginIntent);
+    private void gotoSearchActivity(){
+        Intent searchActivity = new Intent(LoginActivity.this, SearchActivity.class);
+        LoginActivity.this.startActivity(searchActivity);
         LoginActivity.this.finish();
     }
 

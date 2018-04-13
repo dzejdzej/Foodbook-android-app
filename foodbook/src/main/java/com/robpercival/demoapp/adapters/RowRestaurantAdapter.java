@@ -1,6 +1,5 @@
 package com.robpercival.demoapp.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -33,7 +32,7 @@ public class RowRestaurantAdapter extends BaseAdapter {
             vi = inflater.inflate(R.layout.row_restaurant, null);
 
         ImageView imageView = vi.findViewById(R.id.restaurantImageView);
-        Drawable myDrawable = mainActivity.getResources().getDrawable(R.mipmap.restaurant);
+        Drawable myDrawable = mainActivity.getResources().getDrawable(R.drawable.restaurant);
         imageView.setImageDrawable(myDrawable);
 
         TextView restaurantNameTextView = vi.findViewById(R.id.restaurantNameTextView);

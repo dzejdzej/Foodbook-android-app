@@ -10,11 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.robpercival.demoapp.R;
 import com.robpercival.demoapp.adapters.RowRestaurantAdapter;
@@ -47,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.mipmap.menu40x40);
+        actionbar.setHomeAsUpIndicator(R.drawable.menu40x40);
 
         this.drawerLayout = findViewById(R.id.drawer_layout);
 
-        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),R.mipmap.user40x40);
+        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),R.drawable.user40x40);
         toolbar.setOverflowIcon(drawable);
     }
 

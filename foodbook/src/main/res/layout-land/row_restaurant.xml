@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="3"
+    android:rowCount="1">
+
+    <ImageView
+        android:layout_column="0"
+        android:layout_row="0"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/logo"
+        android:layout_gravity="center"
+        android:id="@+id/restaurantImageView"
+        android:layout_margin="20dp"
+        android:layout_marginLeft="100dp"
+        />
+
+    <GridLayout
+        android:layout_column="1"
+        android:layout_row="0"
+        android:layout_columnSpan="2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_gravity="center"
+        android:columnCount="1"
+        android:rowCount="3"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height = "match_parent"
+            android:background="@color/colorGrayBackground"
+            android:layout_column="0"
+            android:layout_row="0">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:typeface="sans"
+                android:id="@+id/restaurantNameTextView"
+                android:textStyle="bold"
+                android:textSize="30sp"
+                />
+        </RelativeLayout>
+
+
+        <RatingBar
+            android:layout_column="0"
+            android:layout_row="1"
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1.0"
+            style="?android:attr/ratingBarStyleIndicator"/>
+        <TextView
+            android:layout_column="0"
+            android:layout_row="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:typeface="sans"
+            android:id="@+id/restaurantRatingTextView"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+    </GridLayout>
+    <!--android:layout_width="wrap_content"
+    android:layout_height="wrap_content"-->
+</GridLayout>
