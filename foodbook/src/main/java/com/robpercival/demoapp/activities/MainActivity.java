@@ -27,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
 
         setupDrawerAndToolbar();
         populateListView();
+
+        System.out.println(getIntent().getExtras().get("location") + "");
+        System.out.println(getIntent().getExtras().get("cuisine") + "");
     }
 
     private void populateListView() {

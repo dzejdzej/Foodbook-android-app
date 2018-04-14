@@ -3,4 +3,9 @@
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="monospace">monospace</string>
+    <string name="search">SEARCH</string>
+    <string name="register">REGISTER</string>
+    <string name="loginUpper">LOGIN</string>
+    <string name="invalidLocationOrCuisine">Invalid cuisine or location entered!</string>
+    <string name="location">location</string>
 </resources>
