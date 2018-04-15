@@ -1,5 +1,6 @@
 package com.robpercival.demoapp.activities;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -10,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridLayout;
 import android.widget.ListView;
 
 import com.robpercival.demoapp.R;
@@ -38,6 +42,18 @@ public class MainActivity extends AppCompatActivity {
         restaurantListView = findViewById(R.id.restaurantListView);
         restaurantListView.setAdapter(new RowRestaurantAdapter(this, new String[] { "data1",
                 "data2", "data3", "data4" }));
+
+        restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                GridLayout restaurantGridLayout = (GridLayout) view;
+
+                // iscupati koji je restoran u pitanju
+/*
+                Intent singleRestaurantIntent = new Intent(MainActivity.this, SingleRestaurantActivity.class);
+                MainActivity.this.startActivity(singleRestaurantIntent);*/
+            }
+        });
     }
 
     private void setupDrawerAndToolbar() {
