@@ -8,4 +8,5 @@
     <string name="loginUpper">LOGIN</string>
     <string name="invalidLocationOrCuisine">Invalid cuisine or location entered!</string>
     <string name="location">location</string>
+    <string name="title_activity_single_restauirant">Map</string>
 </resources>

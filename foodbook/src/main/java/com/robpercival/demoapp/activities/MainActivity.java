@@ -49,9 +49,8 @@ public class MainActivity extends AppCompatActivity {
                 GridLayout restaurantGridLayout = (GridLayout) view;
 
                 // iscupati koji je restoran u pitanju
-/*
                 Intent singleRestaurantIntent = new Intent(MainActivity.this, SingleRestaurantActivity.class);
-                MainActivity.this.startActivity(singleRestaurantIntent);*/
+                MainActivity.this.startActivity(singleRestaurantIntent);
             }
         });
     }
