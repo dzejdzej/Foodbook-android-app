@@ -3,6 +3,7 @@ package com.robpercival.demoapp.activities;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -27,7 +28,7 @@ import com.robpercival.demoapp.fragments.Menu3Fragment;
 import com.robpercival.demoapp.fragments.Menu4Fragment;
 import com.robpercival.demoapp.fragments.Menu5Fragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
     private ListView restaurantListView;
@@ -145,5 +146,20 @@ public class MainActivity extends AppCompatActivity {
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        menuItem.setChecked(true);
+        int id = menuItem.getItemId();
+
+        // close drawer when item is tapped
+        drawerLayout.closeDrawers();
+
+        displaySelectedScreen(id);
+        // Add code here to update the UI based on the item selected
+        // For example, swap UI fragments here
+
+        return true;
     }
 }
