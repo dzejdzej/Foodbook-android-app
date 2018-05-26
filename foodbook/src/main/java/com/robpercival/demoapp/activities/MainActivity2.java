@@ -3,6 +3,7 @@ package com.robpercival.demoapp.activities;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -26,36 +27,27 @@ import com.robpercival.demoapp.fragments.Menu2Fragment;
 import com.robpercival.demoapp.fragments.Menu3Fragment;
 import com.robpercival.demoapp.fragments.Menu4Fragment;
 import com.robpercival.demoapp.fragments.Menu5Fragment;
-import com.robpercival.demoapp.presenter.MainPresenter;
 
-public class MainActivity extends AppCompatActivity implements  MainPresenter.MainView {
+public class MainActivity2 extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
     private ListView restaurantListView;
 
-    private MainPresenter mainPresenter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
         setupDrawerAndToolbar();
         populateListView();
 
         displaySelectedScreen(R.id.nav_menu1);
-
         System.out.println(getIntent().getExtras().get("location") + "");
         System.out.println(getIntent().getExtras().get("cuisine") + "");
-
-        mainPresenter = new MainPresenter(this);
-
-
-
     }
 
     private void populateListView() {
+        restaurantListView = findViewById(R.id.restaurantListView);
 
         restaurantListView = findViewById(R.id.restaurantListView);
         restaurantListView.setAdapter(new RowRestaurantAdapter(this, new String[] { "data1",
@@ -67,8 +59,8 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
                 GridLayout restaurantGridLayout = (GridLayout) view;
 
                 // iscupati koji je restoran u pitanju
-                Intent singleRestaurantIntent = new Intent(MainActivity.this, SingleRestaurantActivity.class);
-                MainActivity.this.startActivity(singleRestaurantIntent);
+                Intent singleRestaurantIntent = new Intent(MainActivity2.this, SingleRestaurantActivity.class);
+                MainActivity2.this.startActivity(singleRestaurantIntent);
             }
         });
     }
@@ -157,12 +149,17 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
     }
 
     @Override
-    public void onLoginFail() {
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        menuItem.setChecked(true);
+        int id = menuItem.getItemId();
 
-    }
+        // close drawer when item is tapped
+        drawerLayout.closeDrawers();
 
-    @Override
-    public void onLoginSuccess() {
+        displaySelectedScreen(id);
+        // Add code here to update the UI based on the item selected
+        // For example, swap UI fragments here
 
+        return true;
     }
 }

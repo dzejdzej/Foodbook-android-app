@@ -145,9 +145,9 @@ public class SearchActivity extends Activity {
     private void populateArrays(){
         searchListView = findViewById(R.id.searchListView);
 
-        locations.add("London");
-        locations.add("Madrid");
-        locations.add("Paris");
+        locations.add("Novi Sad");
+        locations.add("Beograd");
+        //locations.add("Paris");
 
         cuisines.add("Italian");
         cuisines.add("Greek");

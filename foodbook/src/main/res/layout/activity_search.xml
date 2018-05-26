@@ -5,13 +5,13 @@
     android:background="@color/colorGrayBackground">
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
         android:ems="10"
         android:id="@+id/locationEditText"
         android:textColorHint="#000000"
-        android:drawableLeft="@drawable/location_icon"
+
         android:drawablePadding="5dp"
         android:layout_marginTop="17dp"
         android:layout_alignParentTop="true"
@@ -29,7 +29,7 @@
         android:ems="10"
         android:id="@+id/cuisineEditText"
         android:textColorHint="#000000"
-        android:drawableLeft="@drawable/cuisine_icon"
+
         android:drawablePadding="5dp"
         android:layout_below="@+id/locationEditText"
         android:layout_alignParentLeft="true"
