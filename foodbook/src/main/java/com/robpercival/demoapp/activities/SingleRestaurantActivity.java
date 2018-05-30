@@ -2,6 +2,8 @@ package com.robpercival.demoapp.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -11,21 +13,59 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 import com.robpercival.demoapp.R;
+import com.robpercival.demoapp.presenter.SingleRestaurantPresenter;
+import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
+import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
 
-public class SingleRestaurantActivity extends FragmentActivity implements OnMapReadyCallback {
+public class SingleRestaurantActivity extends FragmentActivity implements OnMapReadyCallback, SingleRestaurantPresenter.SingleRestaurantView {
 
     private GoogleMap mMap;
+    private String reservationRequestJson;
+    private ReservationRequestDTO reservationRequest;
+    private long restaurantId;
+    private SingleRestaurantPresenter presenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_restaurant);
+
+
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            reservationRequestJson = extras.getString("reservationRequest");
+            restaurantId = extras.getLong("restaurantId");
+        }
+
+        reservationRequest = new Gson().fromJson(reservationRequestJson, ReservationRequestDTO.class);
+
+
+        Button reserveButton = (Button) findViewById(R.id.reserveButton);
+
+        reserveButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                makeAReservation();
+            }
+        });
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         setupRestaurantData();
+        presenter = new SingleRestaurantPresenter(this);
+    }
+
+
+
+    public void makeAReservation() {
+        presenter.onReservationClick(reservationRequest, restaurantId);
+
     }
 
     @Override
@@ -53,5 +93,18 @@ public class SingleRestaurantActivity extends FragmentActivity implements OnMapR
 
         TextView ratingTextView = findViewById(R.id.singleRestaurantRatingBarValue);
         ratingTextView.setText("4.5 / 5");
+
+        Button reserveButton = findViewById(R.id.reserveButton);
+        reserveButton.setText("Reserve " + reservationRequest.getSeats() + " seats.");
+    }
+
+    @Override
+    public void onReservationFail() {
+
+    }
+
+    @Override
+    public void onReservationSuccess() {
+
     }
 }

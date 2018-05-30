@@ -57,6 +57,16 @@
                 android:textStyle="normal"
                 android:layout_below="@+id/singleRestaurantOpenTextView"/>
 
+            <Button
+                android:layout_marginTop="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="@string/reserve"
+                android:id="@+id/reserveButton"
+                android:background="@color/colorTheme" />
+
+
+
             <fragment
                 android:id="@+id/map"
                 android:name="com.google.android.gms.maps.SupportMapFragment"

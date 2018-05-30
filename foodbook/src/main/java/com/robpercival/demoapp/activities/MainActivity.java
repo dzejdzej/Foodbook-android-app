@@ -1,6 +1,7 @@
 package com.robpercival.demoapp.activities;
 
 import android.content.Intent;
+import android.content.SyncStatusObserver;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -12,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.GridLayout;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
 import com.robpercival.demoapp.R;
 import com.robpercival.demoapp.adapters.RowRestaurantAdapter;
 import com.robpercival.demoapp.fragments.Menu1Fragment;
@@ -27,6 +30,13 @@ import com.robpercival.demoapp.fragments.Menu3Fragment;
 import com.robpercival.demoapp.fragments.Menu4Fragment;
 import com.robpercival.demoapp.fragments.Menu5Fragment;
 import com.robpercival.demoapp.presenter.MainPresenter;
+import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
+import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements  MainPresenter.MainView {
 
@@ -34,12 +44,34 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
     private ListView restaurantListView;
 
     private MainPresenter mainPresenter;
+    private List<ReservationResponseDTO> availableRestaurants;
+    private ReservationRequestDTO reservationRequest;
+    private String availableRestaurantsJson;
+    private String reservationRequestJson;
+
+    public static <ReservationResponseDTO> List<ReservationResponseDTO> stringToArray(String jsonString, Class<ReservationResponseDTO[]> clazz) {
+        ReservationResponseDTO[] arr = new Gson().fromJson(jsonString, clazz);
+        return Arrays.asList(arr); //or return Arrays.asList(new Gson().fromJson(s, clazz)); for a one-liner
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        availableRestaurantsJson = null;
+        reservationRequestJson = null;
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            availableRestaurantsJson = extras.getString("availableRestaurants");
+            reservationRequestJson = extras.getString("reservationRequest");
+        }
+
+        availableRestaurants = stringToArray(availableRestaurantsJson, ReservationResponseDTO[].class);
+        reservationRequest = new Gson().fromJson(reservationRequestJson, ReservationRequestDTO.class);
+
+        //Log.d("Velicina dtos: ", jsonMyObject);
 
         setupDrawerAndToolbar();
         populateListView();
@@ -58,16 +90,29 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
     private void populateListView() {
 
         restaurantListView = findViewById(R.id.restaurantListView);
-        restaurantListView.setAdapter(new RowRestaurantAdapter(this, new String[] { "data1",
-                "data2", "data3", "data4" }));
+        // izvuci iz bundle listu
+        //
+        /*List<String> stockList = new ArrayList<String>();
+        stockList.add("stock1");
+        stockList.add("stock2");
+
+        String[] stockArr = new String[stockList.size()];
+        stockArr = stockList.toArray(stockArr);*/
+        //ReservationResponseDTO[] dtoArray = new ReservationResponseDTO[this.dtos.size()];
+        //ReservationResponseDTO[] dtoArray =  (ReservationResponseDTO[]) this.dtos.toArray( new ReservationResponseDTO[this.dtos.size()]);
+
+
+        restaurantListView.setAdapter(new RowRestaurantAdapter(this, this.availableRestaurants));
 
         restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 GridLayout restaurantGridLayout = (GridLayout) view;
-
+                long restaurantId = availableRestaurants.get(i).getRestaurantId();
                 // iscupati koji je restoran u pitanju
                 Intent singleRestaurantIntent = new Intent(MainActivity.this, SingleRestaurantActivity.class);
+                singleRestaurantIntent.putExtra("reservationRequest", reservationRequestJson);
+                singleRestaurantIntent.putExtra("restaurantId", restaurantId);
                 MainActivity.this.startActivity(singleRestaurantIntent);
             }
         });

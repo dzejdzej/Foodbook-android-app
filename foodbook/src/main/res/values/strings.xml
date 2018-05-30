@@ -9,5 +9,6 @@
     <string name="invalidLocationOrCuisine">Invalid cuisine or location entered!</string>
     <string name="invalidCountryOrCity">Invalid country or city entered!</string>
     <string name="location">location</string>
+    <string name="reserve">reserve</string>
     <string name="title_activity_single_restauirant">Map</string>
 </resources>

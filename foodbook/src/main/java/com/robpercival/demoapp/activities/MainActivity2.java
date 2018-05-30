@@ -50,8 +50,8 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
         restaurantListView = findViewById(R.id.restaurantListView);
 
         restaurantListView = findViewById(R.id.restaurantListView);
-        restaurantListView.setAdapter(new RowRestaurantAdapter(this, new String[] { "data1",
-                "data2", "data3", "data4" }));
+       // restaurantListView.setAdapter(new RowRestaurantAdapter(this, new String[] { "data1",
+         //       "data2", "data3", "data4" }));
 
         restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

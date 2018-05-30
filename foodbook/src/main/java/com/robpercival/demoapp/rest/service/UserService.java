@@ -11,7 +11,6 @@ public interface UserService {
 
     void login(String username, String password, final ServiceCallback<UserDTO> presenterCallback);
     void register(String name, String surname, String username, String password, String email, String address, final ServiceCallback<UserDTO> presenterCallback);
-
     /**************
      *
      *        UserService userService = UserServiceImpl.getInstance();

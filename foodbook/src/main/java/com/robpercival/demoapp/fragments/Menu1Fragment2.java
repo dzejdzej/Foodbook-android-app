@@ -33,8 +33,8 @@ public class Menu1Fragment2 extends Fragment {
         ListView restaurantListView = getView().findViewById(R.id.restaurantListView);
 
         restaurantListView = getView().findViewById(R.id.restaurantListView);
-        restaurantListView.setAdapter(new RowRestaurantAdapter(getActivity(), new String[] { "data1",
-                "data2", "data3", "data4" }));
+        //restaurantListView.setAdapter(new RowRestaurantAdapter(getActivity(), new String[] { "data1",
+          //      "data2", "data3", "data4" }));
 
         restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

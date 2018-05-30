@@ -1,47 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ProgressBar
+        android:id="@+id/loader"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content" />
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayoutSearch"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="fill_parent"
     android:background="@color/colorGrayBackground">
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:ems="10"
-        android:id="@+id/locationEditText"
-        android:textColorHint="#000000"
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        android:drawablePadding="5dp"
-        android:layout_marginTop="17dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/cuisineEditText"
-        android:layout_alignStart="@+id/cuisineEditText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:inputType="number"
+        android:id="@+id/durationEditText"
+        android:textColorHint="#000000"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:id="@+id/numberOfSeatsEditText"
+        android:textColorHint="#000000"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:ems="10"
+        android:id="@+id/locationEditText"
+        android:textColorHint="#000000"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:inputType="text"
         android:ems="10"
         android:id="@+id/cuisineEditText"
-        android:textColorHint="#000000"
+        android:textColorHint="#000000" />
 
-        android:drawablePadding="5dp"
-        android:layout_below="@+id/locationEditText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_marginTop="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="@string/search"
+        android:id="@+id/searchButton"
+        android:background="@color/colorTheme" />
+
+
+
+    <ListView
+        android:id="@+id/searchListView"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+    </ListView>
+
+
+</LinearLayout>
+    </LinearLayout>
+</ScrollView>
+
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGrayBackground">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content" android:orientation="horizontal"
+        android:layout_width="wrap_content">
+        <ImageView
+            android:id="@+id/locationIcon"
+            android:src="@drawable/location_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ImageView>--><!--
+         <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:id="@+id/locationEditText"
+            android:textColorHint="#000000" />
+
+    </LinearLayout>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content" android:orientation="horizontal"
+        android:layout_width="fill_parent">
+        <ImageView
+            android:id="@+id/cuisineIcon"
+            android:src="@drawable/cuisine_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ImageView>--><!--
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:id="@+id/cuisineEditText"
+            android:textColorHint="#000000" />
+
+    </LinearLayout>
+
+
+
 
     <ListView
         android:id="@+id/searchListView"
         android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/cuisineEditText">
+        android:layout_width="match_parent">
     </ListView>
 
     <Button
@@ -49,11 +140,8 @@
         android:layout_height="wrap_content"
         android:text="@string/search"
         android:id="@+id/searchButton"
-        android:layout_marginBottom="72dp"
         android:background="@color/colorTheme"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+         />
 
-</RelativeLayout>
+</LinearLayout>-->
+
