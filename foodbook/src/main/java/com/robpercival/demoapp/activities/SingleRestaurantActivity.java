@@ -1,5 +1,6 @@
 package com.robpercival.demoapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -17,7 +18,6 @@ import com.google.gson.Gson;
 import com.robpercival.demoapp.R;
 import com.robpercival.demoapp.presenter.SingleRestaurantPresenter;
 import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
-import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
 
 public class SingleRestaurantActivity extends FragmentActivity implements OnMapReadyCallback, SingleRestaurantPresenter.SingleRestaurantView {
 
@@ -26,6 +26,7 @@ public class SingleRestaurantActivity extends FragmentActivity implements OnMapR
     private ReservationRequestDTO reservationRequest;
     private long restaurantId;
     private SingleRestaurantPresenter presenter;
+    private Button reserveButton;
 
 
     @Override
@@ -44,7 +45,7 @@ public class SingleRestaurantActivity extends FragmentActivity implements OnMapR
         reservationRequest = new Gson().fromJson(reservationRequestJson, ReservationRequestDTO.class);
 
 
-        Button reserveButton = (Button) findViewById(R.id.reserveButton);
+        reserveButton = (Button) findViewById(R.id.reserveButton);
 
         reserveButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -60,8 +61,6 @@ public class SingleRestaurantActivity extends FragmentActivity implements OnMapR
         setupRestaurantData();
         presenter = new SingleRestaurantPresenter(this);
     }
-
-
 
     public void makeAReservation() {
         presenter.onReservationClick(reservationRequest, restaurantId);
@@ -98,13 +97,17 @@ public class SingleRestaurantActivity extends FragmentActivity implements OnMapR
         reserveButton.setText("Reserve " + reservationRequest.getSeats() + " seats.");
     }
 
+
     @Override
-    public void onReservationFail() {
+    public void onReservationFail(String s) {
 
     }
 
     @Override
-    public void onReservationSuccess() {
-
+    public void onReservationSuccess(long reservationId) {
+        Intent activity = new Intent(SingleRestaurantActivity.this, InviteFriendsActivity.class);
+        activity.putExtra("reservationId", reservationId);
+        SingleRestaurantActivity.this.startActivity(activity);
+        SingleRestaurantActivity.this.finish();
     }
 }

@@ -1,9 +1,11 @@
 package com.robpercival.demoapp.rest.service.impl;
 
 import com.robpercival.demoapp.rest.ReservationAPI;
+import com.robpercival.demoapp.rest.dto.InviteFriendsDTO;
+import com.robpercival.demoapp.rest.dto.ReservationDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
-import com.robpercival.demoapp.rest.dto.user.ReserveDTO;
+import com.robpercival.demoapp.rest.dto.user.CreatedReservationDTO;
 import com.robpercival.demoapp.rest.service.ReservationService;
 import com.robpercival.demoapp.rest.service.ServiceCallback;
 
@@ -57,22 +59,82 @@ public class ReservationServiceImpl extends BaseServiceImpl implements Reservati
     }
 
     @Override
-    public void reserve(ReservationRequestDTO reservationRequest, long restaurantId, final ServiceCallback<ReserveDTO> presenterCallback) {
-        Call<ReserveDTO> apiCall = reservationAPI.reserve(reservationRequest, restaurantId);
+    public void reserve(ReservationRequestDTO reservationRequest, long restaurantId, final ServiceCallback<CreatedReservationDTO> presenterCallback) {
+        Call<CreatedReservationDTO> apiCall = reservationAPI.reserve(reservationRequest);
         //tempPolje = presenterCallback;
-        apiCall.enqueue(new Callback<ReserveDTO>() {
+        apiCall.enqueue(new Callback<CreatedReservationDTO>() {
 
             @Override
-            public void onResponse(Call<ReserveDTO> call, Response<ReserveDTO> response) {
-                ReserveDTO body = response.body();
+            public void onResponse(Call<CreatedReservationDTO> call, Response<CreatedReservationDTO> response) {
+                CreatedReservationDTO body = response.body();
                 presenterCallback.onSuccess(body);
             }
 
             @Override
-            public void onFailure(Call<ReserveDTO> call, Throwable t) {
+            public void onFailure(Call<CreatedReservationDTO> call, Throwable t) {
 
             }
         });
+    }
+
+    @Override
+    public void finishReservation(InviteFriendsDTO dto, final ServiceCallback<InviteFriendsDTO> presenterCallback) {
+        Call<InviteFriendsDTO> apiCall = reservationAPI.finishReservation(dto);
+        //tempPolje = presenterCallback;
+        apiCall.enqueue(new Callback<InviteFriendsDTO>() {
+
+            @Override
+            public void onResponse(Call<InviteFriendsDTO> call, Response<InviteFriendsDTO> response) {
+                InviteFriendsDTO body = response.body();
+                presenterCallback.onSuccess(body);
+            }
+
+            @Override
+            public void onFailure(Call<InviteFriendsDTO> call, Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
+    public void getAllReservationsForUser(long userId, final ServiceCallback<List<ReservationDTO>> presenterCallback) {
+        Call<List<ReservationDTO>> apiCall = reservationAPI.getAllReservationsForUser(userId);
+        //tempPolje = presenterCallback;
+        apiCall.enqueue(new Callback<List<ReservationDTO>>() {
+
+            @Override
+            public void onResponse(Call<List<ReservationDTO>> call, Response<List<ReservationDTO>> response) {
+                List<ReservationDTO> body = response.body();
+                presenterCallback.onSuccess(body);
+            }
+
+            @Override
+            public void onFailure(Call<List<ReservationDTO>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
+    public void cancelReservation(ReservationDTO dto, final ServiceCallback<ReservationDTO> presenterCallback) {
+
+        Call<ReservationDTO> apiCall = reservationAPI.cancelReservation(dto);
+        //tempPolje = presenterCallback;
+        apiCall.enqueue(new Callback<ReservationDTO>() {
+
+            @Override
+            public void onResponse(Call<ReservationDTO> call, Response<ReservationDTO> response) {
+                ReservationDTO body = response.body();
+                presenterCallback.onSuccess(body);
+            }
+
+            @Override
+            public void onFailure(Call<ReservationDTO> call, Throwable t) {
+
+            }
+        });
+
+
     }
 
 

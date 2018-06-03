@@ -78,7 +78,7 @@ public class SearchPresenter {
         dto.setCity(view.getCity());
         dto.setCuisine(ReservationRequestDTO.toEnumString(view.getCuisineType()));
         dto.setDate(view.getReservationDate().getTime());
-        dto.setDuration(view.getDuration());
+        dto.setDuration(view.getDuration() * 3600 * 1000);
         dto.setSeats(view.getNumberOfSeats());
         return dto;
     }

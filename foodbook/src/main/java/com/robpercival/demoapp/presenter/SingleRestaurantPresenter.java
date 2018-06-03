@@ -1,10 +1,12 @@
 package com.robpercival.demoapp.presenter;
 
 import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
-import com.robpercival.demoapp.rest.dto.user.ReserveDTO;
+import com.robpercival.demoapp.rest.dto.user.CreatedReservationDTO;
+import com.robpercival.demoapp.rest.dto.user.UserDTO;
 import com.robpercival.demoapp.rest.service.ReservationService;
 import com.robpercival.demoapp.rest.service.ServiceCallback;
 import com.robpercival.demoapp.rest.service.impl.ReservationServiceImpl;
+import com.robpercival.demoapp.state.ApplicationState;
 
 /**
  * Created by User on 5/29/2018.
@@ -16,8 +18,8 @@ public class SingleRestaurantPresenter {
 
     public interface SingleRestaurantView {
 
-        void onReservationFail();
-        void onReservationSuccess();
+        void onReservationFail(String s);
+        void onReservationSuccess(long reservationId);
     };
 
     ReservationService reservationService = ReservationServiceImpl.getInstance();
@@ -31,15 +33,24 @@ public class SingleRestaurantPresenter {
 
     public void onReservationClick(ReservationRequestDTO reservationRequest, long restaurantId) {
 
-        reservationService.reserve(reservationRequest, restaurantId, new ServiceCallback<ReserveDTO>() {
+        UserDTO dto = (UserDTO) ApplicationState.getInstance().getItem("UserDTO");
+
+        long userId = dto.getUserId();
+        reservationRequest.setUserId(userId);
+        reservationRequest.setRestaurantId(restaurantId);
+        reservationService.reserve(reservationRequest, restaurantId, new ServiceCallback<CreatedReservationDTO>() {
             @Override
-            public void onSuccess(ReserveDTO body) {
-                view.onReservationSuccess();
+            public void onSuccess(CreatedReservationDTO body) {
+
+                if(body.getReservationId() == -1)
+                    view.onReservationFail("Not enough seats!");
+                else
+                    view.onReservationSuccess(body.getReservationId());
             }
 
             @Override
-            public void onError(ReserveDTO body) {
-                view.onReservationFail();
+            public void onError(CreatedReservationDTO body) {
+                view.onReservationFail("");
             }
         });
 

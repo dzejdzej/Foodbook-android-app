@@ -15,6 +15,8 @@ public class ReservationRequestDTO {
     private String begin;
     private long duration;
     private int seats;
+    private long restaurantId;
+    private long userId;
 
     public ReservationRequestDTO() {
 
@@ -66,6 +68,22 @@ public class ReservationRequestDTO {
 
     public void setDuration(long duration) {
         this.duration = duration;
+    }
+
+    public long getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(long restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public static String toEnumString(String s){

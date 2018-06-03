@@ -7,8 +7,17 @@ package com.robpercival.demoapp.rest.dto.user;
 public class UserDTO {
     private String name;
     private String surname;
+    private long userId;
 
-    public UserDTO() {}
+    public UserDTO() {
+
+    }
+
+    public UserDTO(String name, String surname, long userId) {
+        this.name = name;
+        this.surname = surname;
+        this.userId = userId;
+    }
 
     public String getName() {
         return name;
@@ -25,4 +34,13 @@ public class UserDTO {
     public void setSurname(String surname) {
         this.surname = surname;
     }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
 }

@@ -44,6 +44,11 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.InviteFriendsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -58,9 +63,8 @@
 
         <activity
             android:name=".activities.SingleRestaurantActivity"
-            android:label="@string/title_activity_single_restauirant">
-
-        </activity>
+            android:label="@string/title_activity_single_restauirant"></activity>
+        <activity android:name=".activities.MyReservationsActivity"></activity>
     </application>
 
 </manifest>

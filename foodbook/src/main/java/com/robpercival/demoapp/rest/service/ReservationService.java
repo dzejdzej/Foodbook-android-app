@@ -1,8 +1,10 @@
 package com.robpercival.demoapp.rest.service;
 
+import com.robpercival.demoapp.rest.dto.InviteFriendsDTO;
+import com.robpercival.demoapp.rest.dto.ReservationDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
-import com.robpercival.demoapp.rest.dto.user.ReserveDTO;
+import com.robpercival.demoapp.rest.dto.user.CreatedReservationDTO;
 
 import java.util.List;
 
@@ -12,6 +14,12 @@ import java.util.List;
 
 public interface ReservationService {
     void getAvailableRestaurants(ReservationRequestDTO dto, final ServiceCallback<List<ReservationResponseDTO>> presenterCallback);
-    void reserve(ReservationRequestDTO reservationRequest, long restaurantId, final ServiceCallback<ReserveDTO> presenterCallback);
 
+    void reserve(ReservationRequestDTO reservationRequest, long restaurantId, final ServiceCallback<CreatedReservationDTO> presenterCallback);
+
+    void finishReservation(InviteFriendsDTO dto, final ServiceCallback<InviteFriendsDTO> presenterCallback);
+
+    void getAllReservationsForUser(long userId, final ServiceCallback<List<ReservationDTO>> presenterCallback);
+
+    void cancelReservation(ReservationDTO dto, final ServiceCallback<ReservationDTO> presenterCallback);
 }
