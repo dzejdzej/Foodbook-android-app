@@ -24,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class BaseServiceImpl {
 
-    private static final String API_URL = "http://192.168.0.48:8080/api/";
+    private static final String API_URL = "http://192.168.0.14:8080/api/";
 
     protected Retrofit retrofit;
 
