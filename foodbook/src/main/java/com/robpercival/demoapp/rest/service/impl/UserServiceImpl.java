@@ -37,21 +37,25 @@ public class UserServiceImpl extends BaseServiceImpl implements  UserService{
     @Override
     public void login(String username, String password, final ServiceCallback<UserDTO> presenterCallback) {
         LoginDTO dto = new LoginDTO(username, password);
-        Call<UserDTO> apiCall = userApi.loginUser(dto);
-        //tempPolje = presenterCallback;
-        apiCall.enqueue(new Callback<UserDTO>() {
 
-            @Override
-            public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
-                UserDTO body = response.body();
-                presenterCallback.onSuccess(body);
-            }
+        presenterCallback.onSuccess(new UserDTO());
 
-            @Override
-            public void onFailure(Call<UserDTO> call, Throwable t) {
-
-            }
-        });
+//
+//        Call<UserDTO> apiCall = userApi.loginUser(dto);
+//        //tempPolje = presenterCallback;
+//        apiCall.enqueue(new Callback<UserDTO>() {
+//
+//            @Override
+//            public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
+//                UserDTO body = response.body();
+//                presenterCallback.onSuccess(body);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<UserDTO> call, Throwable t) {
+//
+//            }
+//        });
     }
 
     @Override

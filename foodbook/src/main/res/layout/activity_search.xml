@@ -24,11 +24,49 @@
             android:background="@color/colorGrayBackground"
             android:orientation="vertical">
 
-            <TextView
-                style="@style/AppTheme"
-                android:layout_width="wrap_content"
+
+            <Button
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/labelDatePicker" />
+                android:text="Pick date"
+                android:padding="16dp"
+                android:id="@+id/datePickerButton"
+                android:background="@color/accent_material_dark"
+                android:textColor="@color/colorWhite" />
+            <TextView
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textSize="30dp"
+                android:outlineProvider="background"
+                android:shadowColor="@color/colorWhite"
+                android:shadowRadius="6"
+                android:textColor="@color/colorBlack"
+                android:id="@+id/datePickedText" />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pick time"
+                android:padding="16dp"
+                android:id="@+id/timePickerButton"
+                android:background="@color/accent_material_dark"
+                android:textColor="@color/colorWhite" />
+            <TextView
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textSize="30dp"
+                android:outlineProvider="background"
+                android:shadowColor="@color/colorWhite"
+                android:shadowRadius="6"
+                android:textColor="@color/colorBlack"
+                android:id="@+id/timePickedText" />
 
             <DatePicker
                 android:id="@+id/datePicker"
@@ -37,11 +75,16 @@
                 android:calendarViewShown="false"
                 android:datePickerMode="spinner" />
 
-            <TextView
-                style="@style/AppTheme"
-                android:layout_width="wrap_content"
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/labelTimePicker" />
+                android:background="@color/accent_material_dark">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/labelTimePicker" />
+            </android.support.v7.widget.Toolbar>
 
             <TimePicker
                 android:id="@+id/timePicker"
@@ -49,12 +92,22 @@
                 android:layout_height="wrap_content"
                 android:timePickerMode="spinner" />
 
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/accent_material_dark">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Enter data:" />
+            </android.support.v7.widget.Toolbar>
+
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="16dp">
-
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -109,27 +162,20 @@
                         android:textColorHint="#000000" />
                 </android.support.design.widget.TextInputLayout>
 
-
-
-                <LinearLayout
+                <Button
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:text="@string/search"
+                    android:id="@+id/searchButton"
+                    android:background="@color/accent_material_dark"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginTop="19dp"/>
 
-                    <Button
-                        android:id="@+id/searchButton"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="40dp"
-                        android:background="@color/colorTheme"
-                        android:text="@string/search" />
 
                     <ListView
                         android:id="@+id/searchListView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-
-                </LinearLayout>
 
             </LinearLayout>
 

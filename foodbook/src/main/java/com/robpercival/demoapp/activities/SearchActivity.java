@@ -2,6 +2,11 @@ package com.robpercival.demoapp.activities;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,7 +18,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -32,9 +36,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static com.robpercival.demoapp.R.id.linearLayoutSearch;
-import static com.robpercival.demoapp.R.id.locationEditText;
-
 public class SearchActivity extends Activity implements SearchPresenter.SearchView{
 
     private ListView searchListView;
@@ -50,6 +51,8 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
     private SearchPresenter presenter;
     private ProgressBar pgsBar;
     private View searchView;
+    private Button datePickerButton, timePickerButton;
+    private TextView timePickedText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,48 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
          pgsBar = (ProgressBar)findViewById(R.id.loader);
          searchView = findViewById(R.id.linearLayoutSearch);
 
+
+        timePickedText = (TextView)findViewById(R.id.timePickedText);
+
+        datePickerButton = (Button)findViewById(R.id.datePickerButton);
+        datePickerButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+
+
+                DialogFragment dialogfragment = new DatePickerDialogTheme2();
+
+                dialogfragment.show(getFragmentManager(), "Theme 2");
+
+            }
+        });
+
+
+        timePickerButton = (Button)findViewById(R.id.timePickerButton);
+        timePickerButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(SearchActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        timePickedText.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+
+            }
+        });
+
+
         DatePicker datePicker = findViewById(R.id.datePicker);
         datePicker.setMinDate(System.currentTimeMillis() - 1000);
         presenter = new SearchPresenter(this);
@@ -67,6 +112,32 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
         setupViewEvents();
 
 
+    }
+
+
+
+    public static class DatePickerDialogTheme2 extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState){
+            final Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datepickerdialog = new DatePickerDialog(getActivity(),
+                    AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,this,year,month,day);
+
+            return datepickerdialog;
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day){
+
+            TextView textview = (TextView)getActivity().findViewById(R.id.datePickedText);
+
+            textview.setText(day + ":" + (month+1) + ":" + year);
+
+        }
     }
 
     private void setupEditTexts() {
@@ -268,3 +339,4 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
     }
 
 }
+

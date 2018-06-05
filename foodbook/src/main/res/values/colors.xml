@@ -6,4 +6,7 @@
     <color name="colorTheme">#129f35</color>
     <color name="colorGrayBackground">#d2d2d2</color>
     <color name="colorTextGray">#969292</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorRed">#FF0000</color>
 </resources>
