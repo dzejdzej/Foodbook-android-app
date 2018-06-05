@@ -44,8 +44,6 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
     private ArrayList<String> cuisines = new ArrayList<>();
     private EditText cityEditText;
     private EditText cuisineEditText;
-    private DatePicker datePicker;
-    private TimePicker timePicker;
     private EditText duration;
     private EditText numberOfSeats;
     private SearchPresenter presenter;
@@ -53,6 +51,8 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
     private View searchView;
     private Button datePickerButton, timePickerButton;
     private TextView timePickedText;
+    public static Date RESERVATION_DATE;
+    public static String RESERVATION_TIME;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +94,8 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
                 mTimePicker = new TimePickerDialog(SearchActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        timePickedText.setText( selectedHour + ":" + selectedMinute);
+                        RESERVATION_TIME = selectedHour + ":" + selectedMinute;
+                        timePickedText.setText(RESERVATION_TIME);
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
@@ -104,8 +105,6 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
         });
 
 
-        DatePicker datePicker = findViewById(R.id.datePicker);
-        datePicker.setMinDate(System.currentTimeMillis() - 1000);
         presenter = new SearchPresenter(this);
         populateArrays();
         setupEditTexts();
@@ -134,6 +133,7 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
         public void onDateSet(DatePicker view, int year, int month, int day){
 
             TextView textview = (TextView)getActivity().findViewById(R.id.datePickedText);
+            RESERVATION_DATE = getDateFromDatePicker(view);
 
             textview.setText(day + ":" + (month+1) + ":" + year);
 
@@ -185,8 +185,6 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
         });
-        datePicker = findViewById(R.id.datePicker);
-        timePicker = findViewById(R.id.timePicker);
         duration = findViewById(R.id.durationEditText);
         numberOfSeats = findViewById(R.id.numberOfSeatsEditText);
     }
@@ -284,17 +282,12 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
 
     @Override
     public Date getReservationDate() {
-        return getDateFromDatePicker(datePicker);
+        return RESERVATION_DATE;
     }
 
     @Override
     public String getReservationTime() {
-        int hour = timePicker.getCurrentHour();
-        int minute = timePicker.getCurrentMinute();
-        StringBuilder builder = new StringBuilder();
-        builder.append(hour).append(":").append(minute);
-
-        return builder.toString();
+        return RESERVATION_TIME;
     }
 
     @Override
@@ -337,6 +330,7 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
 
         return calendar.getTime();
     }
+
 
 }
 

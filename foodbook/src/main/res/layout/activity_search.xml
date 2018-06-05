@@ -40,7 +40,6 @@
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 android:textSize="30dp"
-                android:outlineProvider="background"
                 android:shadowColor="@color/colorWhite"
                 android:shadowRadius="6"
                 android:textColor="@color/colorBlack"
@@ -62,46 +61,11 @@
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 android:textSize="30dp"
-                android:outlineProvider="background"
                 android:shadowColor="@color/colorWhite"
                 android:shadowRadius="6"
                 android:textColor="@color/colorBlack"
                 android:id="@+id/timePickedText" />
 
-            <DatePicker
-                android:id="@+id/datePicker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:calendarViewShown="false"
-                android:datePickerMode="spinner" />
-
-            <android.support.v7.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/accent_material_dark">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/labelTimePicker" />
-            </android.support.v7.widget.Toolbar>
-
-            <TimePicker
-                android:id="@+id/timePicker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:timePickerMode="spinner" />
-
-            <android.support.v7.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/accent_material_dark">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Enter data:" />
-            </android.support.v7.widget.Toolbar>
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
@@ -183,66 +147,4 @@
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
-
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorGrayBackground">
-
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_height="wrap_content" android:orientation="horizontal"
-        android:layout_width="wrap_content">
-        <ImageView
-            android:id="@+id/locationIcon"
-            android:src="@drawable/location_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </ImageView>--><!--
-         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:id="@+id/locationEditText"
-            android:textColorHint="#000000" />
-
-    </LinearLayout>
-
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_height="wrap_content" android:orientation="horizontal"
-        android:layout_width="fill_parent">
-        <ImageView
-            android:id="@+id/cuisineIcon"
-            android:src="@drawable/cuisine_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </ImageView>--><!--
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:id="@+id/cuisineEditText"
-            android:textColorHint="#000000" />
-
-    </LinearLayout>
-
-
-
-
-    <ListView
-        android:id="@+id/searchListView"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
-    </ListView>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/search"
-        android:id="@+id/searchButton"
-        android:background="@color/colorTheme"
-         />
-
-</LinearLayout>-->
 
