@@ -49,8 +49,10 @@ public class LoginActivity extends Activity implements LoginPresenter.LoginView 
 
     private void gotoSearchActivity(){
         //
-        if(editTxtPassword!=null && editTxtUsername!=null)
+        if(editTxtPassword.getText().toString().length()!=0 && editTxtUsername.getText().toString().length()!=0)
             loginPresenter.onLoginClick(editTxtUsername.getText().toString(), editTxtPassword.getText().toString());
+        else
+            Toast.makeText(getApplicationContext(), "Both username and password have to be inserted!", Toast.LENGTH_LONG).show();
     }
 
     private void gotoRegisterActivity() {

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.robpercival.demoapp.R;
 import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
+import com.robpercival.demoapp.state.ApplicationState;
 
 import java.util.List;
 
@@ -36,16 +37,18 @@ public class RowRestaurantAdapter extends BaseAdapter {
             vi = inflater.inflate(R.layout.row_restaurant, null);
 
         ReservationResponseDTO dto = data.get(position);
-        dto.setImageUrl("img/mcdonalds.png");
+        //dto.setImageUrl("img/mcdonalds.png");
+        dto.setImageUrl(data.get(position).getImageUrl());
         ImageView imageView = vi.findViewById(R.id.restaurantImageView);
         Drawable myDrawable = mainActivity.getResources().getDrawable(R.drawable.restaurant);
         Glide.with(this.mainActivity)
-                .load("http://192.168.0.48:8080/" + dto.getImageUrl())
+                .load(ApplicationState.SERVER_IP + "/" + dto.getImageUrl())
                 .into(imageView);
         //imageView.setImageDrawable(myDrawable);
 
         TextView restaurantNameTextView = vi.findViewById(R.id.restaurantNameTextView);
-        restaurantNameTextView.setText("Restaurant Name Yeahh");
+        //restaurantNameTextView.setText("Restaurant Name Yeahh");
+        restaurantNameTextView.setText(data.get(position).getRestaurantName());
 
         RatingBar ratingBar = vi.findViewById(R.id.ratingBar);
         ratingBar.setRating(3.5f);

@@ -6,6 +6,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import com.robpercival.demoapp.state.ApplicationState;
 
 import java.lang.reflect.Type;
 import java.sql.Date;
@@ -24,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class BaseServiceImpl {
 
-    private static final String API_URL = "http://192.168.0.12/api/";
+    private static final String API_URL = ApplicationState.SERVER_IP + "/api/";
 
     protected Retrofit retrofit;
 

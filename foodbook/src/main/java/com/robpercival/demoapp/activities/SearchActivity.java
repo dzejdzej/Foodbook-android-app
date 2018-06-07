@@ -2,6 +2,11 @@ package com.robpercival.demoapp.activities;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,7 +18,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -32,9 +36,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static com.robpercival.demoapp.R.id.linearLayoutSearch;
-import static com.robpercival.demoapp.R.id.locationEditText;
-
 public class SearchActivity extends Activity implements SearchPresenter.SearchView{
 
     private ListView searchListView;
@@ -43,30 +44,100 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
     private ArrayList<String> cuisines = new ArrayList<>();
     private EditText cityEditText;
     private EditText cuisineEditText;
-    private DatePicker datePicker;
-    private TimePicker timePicker;
     private EditText duration;
     private EditText numberOfSeats;
     private SearchPresenter presenter;
     private ProgressBar pgsBar;
     private View searchView;
+    private Button datePickerButton, timePickerButton;
+    private TextView timePickedText;
+    public static Date RESERVATION_DATE;
+    public static String RESERVATION_TIME;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-         pgsBar = (ProgressBar)findViewById(R.id.loader);
-         searchView = findViewById(R.id.linearLayoutSearch);
+        pgsBar = (ProgressBar)findViewById(R.id.loader);
+        searchView = findViewById(R.id.linearLayoutSearch);
 
-        DatePicker datePicker = findViewById(R.id.datePicker);
-        datePicker.setMinDate(System.currentTimeMillis() - 1000);
+
+        timePickedText = (TextView)findViewById(R.id.timePickedText);
+
+        datePickerButton = (Button)findViewById(R.id.datePickerButton);
+        datePickerButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+
+
+                DialogFragment dialogfragment = new DatePickerDialogTheme2();
+
+                dialogfragment.show(getFragmentManager(), "Theme 2");
+
+            }
+        });
+
+
+        timePickerButton = (Button)findViewById(R.id.timePickerButton);
+        timePickerButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(SearchActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        RESERVATION_TIME = selectedHour + ":" + selectedMinute;
+                        timePickedText.setText(RESERVATION_TIME);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+
+            }
+        });
+
+
         presenter = new SearchPresenter(this);
         populateArrays();
         setupEditTexts();
         setupViewEvents();
 
 
+    }
+
+
+
+    public static class DatePickerDialogTheme2 extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState){
+            final Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datepickerdialog = new DatePickerDialog(getActivity(),
+                    AlertDialog.THEME_DEVICE_DEFAULT_LIGHT,this,year,month,day);
+
+            return datepickerdialog;
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day){
+
+            TextView textview = (TextView)getActivity().findViewById(R.id.datePickedText);
+            RESERVATION_DATE = getDateFromDatePicker(view);
+
+            textview.setText(day + ":" + (month+1) + ":" + year);
+
+        }
     }
 
     private void setupEditTexts() {
@@ -114,8 +185,6 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
         });
-        datePicker = findViewById(R.id.datePicker);
-        timePicker = findViewById(R.id.timePicker);
         duration = findViewById(R.id.durationEditText);
         numberOfSeats = findViewById(R.id.numberOfSeatsEditText);
     }
@@ -213,17 +282,12 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
 
     @Override
     public Date getReservationDate() {
-        return getDateFromDatePicker(datePicker);
+        return RESERVATION_DATE;
     }
 
     @Override
     public String getReservationTime() {
-        int hour = timePicker.getCurrentHour();
-        int minute = timePicker.getCurrentMinute();
-        StringBuilder builder = new StringBuilder();
-        builder.append(hour).append(":").append(minute);
-
-        return builder.toString();
+        return RESERVATION_TIME;
     }
 
     @Override
@@ -267,4 +331,6 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
         return calendar.getTime();
     }
 
+
 }
+

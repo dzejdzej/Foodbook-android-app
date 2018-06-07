@@ -3,145 +3,148 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
+
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <ProgressBar
-        android:id="@+id/loader"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:visibility="gone"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:id="@+id/loader"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linearLayoutSearch"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/colorGrayBackground">
-
-    <DatePicker
-        android:id="@+id/datePicker"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TimePicker
-        android:id="@+id/timePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:id="@+id/durationEditText"
-        android:textColorHint="#000000"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:id="@+id/numberOfSeatsEditText"
-        android:textColorHint="#000000"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:ems="10"
-        android:id="@+id/locationEditText"
-        android:textColorHint="#000000"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:ems="10"
-        android:id="@+id/cuisineEditText"
-        android:textColorHint="#000000" />
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/linearLayoutSearch"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/colorGrayBackground"
+            android:orientation="vertical">
 
 
-    <Button
-        android:layout_marginTop="40dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:text="@string/search"
-        android:id="@+id/searchButton"
-        android:background="@color/colorTheme" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pick date"
+                android:padding="16dp"
+                android:id="@+id/datePickerButton"
+                android:background="@color/accent_material_dark"
+                android:textColor="@color/colorWhite" />
+            <TextView
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textSize="30dp"
+                android:shadowColor="@color/colorWhite"
+                android:shadowRadius="6"
+                android:textColor="@color/colorBlack"
+                android:id="@+id/datePickedText" />
 
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pick time"
+                android:padding="16dp"
+                android:id="@+id/timePickerButton"
+                android:background="@color/accent_material_dark"
+                android:textColor="@color/colorWhite" />
+            <TextView
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textSize="30dp"
+                android:shadowColor="@color/colorWhite"
+                android:shadowRadius="6"
+                android:textColor="@color/colorBlack"
+                android:id="@+id/timePickedText" />
 
-    <ListView
-        android:id="@+id/searchListView"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content">
-    </ListView>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/durationEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Duration (days)"
+                        android:inputType="number"
+                        android:textColorHint="#000000" />
+                </android.support.design.widget.TextInputLayout>
 
 
-</LinearLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/numberOfSeatsEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Persons"
+                        android:inputType="number"
+                        android:textColorHint="#000000" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/locationEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Location (city)"
+                        android:inputType="text"
+                        android:textColorHint="#000000" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/cuisineEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Food type"
+                        android:inputType="text"
+                        android:textColorHint="#000000" />
+                </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search"
+                    android:id="@+id/searchButton"
+                    android:background="@color/accent_material_dark"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginTop="19dp"/>
+
+
+                <ListView
+                    android:id="@+id/searchListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
-
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorGrayBackground">
-
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_height="wrap_content" android:orientation="horizontal"
-        android:layout_width="wrap_content">
-        <ImageView
-            android:id="@+id/locationIcon"
-            android:src="@drawable/location_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </ImageView>--><!--
-         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:id="@+id/locationEditText"
-            android:textColorHint="#000000" />
-
-    </LinearLayout>
-
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_height="wrap_content" android:orientation="horizontal"
-        android:layout_width="fill_parent">
-        <ImageView
-            android:id="@+id/cuisineIcon"
-            android:src="@drawable/cuisine_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </ImageView>--><!--
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:id="@+id/cuisineEditText"
-            android:textColorHint="#000000" />
-
-    </LinearLayout>
-
-
-
-
-    <ListView
-        android:id="@+id/searchListView"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
-    </ListView>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/search"
-        android:id="@+id/searchButton"
-        android:background="@color/colorTheme"
-         />
-
-</LinearLayout>-->
 

@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
         setupDrawerAndToolbar();
         populateListView();
 
-        displaySelectedScreen(R.id.nav_menu1);
+
 
         System.out.println(getIntent().getExtras().get("location") + "");
         System.out.println(getIntent().getExtras().get("cuisine") + "");
@@ -113,7 +113,9 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
                 Intent singleRestaurantIntent = new Intent(MainActivity.this, SingleRestaurantActivity.class);
                 singleRestaurantIntent.putExtra("reservationRequest", reservationRequestJson);
                 singleRestaurantIntent.putExtra("restaurantId", restaurantId);
+                singleRestaurantIntent.putExtra("restaurantDto", new Gson().toJson(availableRestaurants.get(i)));
                 MainActivity.this.startActivity(singleRestaurantIntent);
+
             }
         });
     }
@@ -178,7 +180,9 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
                 fragment = new Menu1Fragment();
                 break;
             case R.id.nav_menu2:
-                fragment = new Menu2Fragment();
+                Intent intent = new Intent(MainActivity.this, MyReservationsActivity.class);
+                MainActivity.this.startActivity(intent);
+                MainActivity.this.finish();
                 break;
             case R.id.nav_menu3:
                 fragment = new Menu3Fragment();
@@ -188,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
                 break;
             case R.id.nav_menu5:
                 fragment = new Menu5Fragment();
+
                 break;
         }
 

@@ -1,12 +1,16 @@
 package com.robpercival.demoapp.activities;
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -18,6 +22,7 @@ import com.robpercival.demoapp.R;
 import com.robpercival.demoapp.presenter.SingleRestaurantPresenter;
 import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
+import com.robpercival.demoapp.state.ApplicationState;
 
 public class SingleRestaurantActivity extends FragmentActivity implements OnMapReadyCallback, SingleRestaurantPresenter.SingleRestaurantView {
 
@@ -26,6 +31,9 @@ public class SingleRestaurantActivity extends FragmentActivity implements OnMapR
     private ReservationRequestDTO reservationRequest;
     private long restaurantId;
     private SingleRestaurantPresenter presenter;
+    private Button reserveButton;
+    private String restaurantDtoJson;
+    private ReservationResponseDTO restaurantDto;
 
 
     @Override
@@ -39,12 +47,15 @@ public class SingleRestaurantActivity extends FragmentActivity implements OnMapR
         if (extras != null) {
             reservationRequestJson = extras.getString("reservationRequest");
             restaurantId = extras.getLong("restaurantId");
+            restaurantDtoJson = extras.getString("restaurantDto");
         }
 
         reservationRequest = new Gson().fromJson(reservationRequestJson, ReservationRequestDTO.class);
+        restaurantDto = new Gson().fromJson(restaurantDtoJson, ReservationResponseDTO.class);
 
 
-        Button reserveButton = (Button) findViewById(R.id.reserveButton);
+
+        reserveButton = (Button) findViewById(R.id.reserveButton);
 
         reserveButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -60,8 +71,6 @@ public class SingleRestaurantActivity extends FragmentActivity implements OnMapR
         setupRestaurantData();
         presenter = new SingleRestaurantPresenter(this);
     }
-
-
 
     public void makeAReservation() {
         presenter.onReservationClick(reservationRequest, restaurantId);
@@ -80,7 +89,19 @@ public class SingleRestaurantActivity extends FragmentActivity implements OnMapR
 
     private void setupRestaurantData() {
         TextView nameTextView = findViewById(R.id.singleRestaurantNameTextView);
-        nameTextView.setText("Lanterna");
+        nameTextView.setText(restaurantDto.getRestaurantName());
+
+
+
+        ImageView imageView = findViewById(R.id.singleRestaurantImageView);
+
+        Glide.with(this)
+                .load(ApplicationState.SERVER_IP +"/" + restaurantDto.getImageUrl())
+                .into(imageView);
+        //imageView.setImageDrawable(myDrawable);
+
+
+
 
         TextView openTextView = findViewById(R.id.singleRestaurantOpenTextView);
         openTextView.setText("Open: 8AM - 10PM (OPEN NOW)");
@@ -98,13 +119,17 @@ public class SingleRestaurantActivity extends FragmentActivity implements OnMapR
         reserveButton.setText("Reserve " + reservationRequest.getSeats() + " seats.");
     }
 
+
     @Override
-    public void onReservationFail() {
+    public void onReservationFail(String s) {
 
     }
 
     @Override
-    public void onReservationSuccess() {
-
+    public void onReservationSuccess(long reservationId) {
+        Intent activity = new Intent(SingleRestaurantActivity.this, InviteFriendsActivity.class);
+        activity.putExtra("reservationId", reservationId);
+        SingleRestaurantActivity.this.startActivity(activity);
+        SingleRestaurantActivity.this.finish();
     }
 }

@@ -11,4 +11,7 @@
     <string name="location">location</string>
     <string name="reserve">reserve</string>
     <string name="title_activity_single_restauirant">Map</string>
+    <string name="inviteReservation">Invite</string>
+    <string name="finishReservation">Finish</string>
+    <string name="cancelReservation">Cancel</string>
 </resources>

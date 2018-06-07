@@ -4,6 +4,7 @@ import com.robpercival.demoapp.rest.dto.user.UserDTO;
 import com.robpercival.demoapp.rest.service.ServiceCallback;
 import com.robpercival.demoapp.rest.service.UserService;
 import com.robpercival.demoapp.rest.service.impl.UserServiceImpl;
+import com.robpercival.demoapp.state.ApplicationState;
 
 /**
  * Created by User on 5/19/2018.
@@ -31,6 +32,7 @@ public class LoginPresenter {
             @Override
             public void onSuccess(UserDTO body) {
 
+                ApplicationState.getInstance().setItem("UserDTO", body);
                 view.onLoginSuccess();
             }
 
