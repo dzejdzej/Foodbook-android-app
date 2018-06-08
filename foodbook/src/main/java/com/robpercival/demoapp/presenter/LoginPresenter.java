@@ -28,24 +28,25 @@ public class LoginPresenter {
 
     public void onLoginClick(String username, String password) {
 
-        userService.login(username, password, new ServiceCallback<UserDTO>() {
-            @Override
-            public void onSuccess(UserDTO body) {
-
-                if(body == null) {
-                    view.onLoginFail();
-                }
-                else {
-                    ApplicationState.getInstance().setItem("UserDTO", body);
-                    view.onLoginSuccess();
-                }
-            }
-
-            @Override
-            public void onError(UserDTO body) {
-
-                view.onLoginFail();
-            }
-        });
+        view.onLoginSuccess();
+//        userService.login(username, password, new ServiceCallback<UserDTO>() {
+//            @Override
+//            public void onSuccess(UserDTO body) {
+//
+//                if(body == null) {
+//                    view.onLoginFail();
+//                }
+//                else {
+//                    ApplicationState.getInstance().setItem("UserDTO", body);
+//                    view.onLoginSuccess();
+//                }
+//            }
+//
+//            @Override
+//            public void onError(UserDTO body) {
+//
+//                view.onLoginFail();
+//            }
+//        });
     }
 }

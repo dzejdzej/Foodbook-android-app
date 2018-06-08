@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -42,8 +43,8 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
     private ArrayList<String> searchListData = new ArrayList<>();
     private ArrayList<String> locations = new ArrayList<>();
     private ArrayList<String> cuisines = new ArrayList<>();
-    private EditText cityEditText;
-    private EditText cuisineEditText;
+    private AutoCompleteTextView cityAutocompleteTextView;
+    private AutoCompleteTextView cuisineAutocompleteTextView;
     private EditText duration;
     private EditText numberOfSeats;
     private SearchPresenter presenter;
@@ -149,10 +150,24 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
 
         presenter = new SearchPresenter(this);
         populateArrays();
-        setupEditTexts();
-        setupViewEvents();
+        setupAutocompleteTexts();
+        //setupViewEvents();
+
+        Button searchButton = findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!locations.contains(cityAutocompleteTextView.getText().toString()) || !cuisines.contains(cuisineAutocompleteTextView.getText().toString())){
+                    Toast.makeText(getApplicationContext(), R.string.invalidLocationOrCuisine,
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                presenter.onSearchClick();
 
 
+            }
+        });
     }
 
 
@@ -182,86 +197,82 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
         }
     }
 
-    private void setupEditTexts() {
-        cityEditText = findViewById(R.id.locationEditText);
-        cityEditText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus) {
-                    generateListViewData(true, ((EditText)view).getText().toString());
-                }
-            }
-        });
-        cityEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                generateListViewData(true, charSequence.toString());
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-        });
+    private void setupAutocompleteTexts() {
 
+        ArrayAdapter<String> adapterLocations = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, locations);
+//        AutoCompleteTextView textView = (AutoCompleteTextView)
+//                findViewById(R.id.countries_list);
+//        textView.setAdapter(adapter);
 
-        cuisineEditText = findViewById(R.id.cuisineEditText);
-        cuisineEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    generateListViewData(false, ((EditText)v).getText().toString());
-                }
-            }
-        });
-        cuisineEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                generateListViewData(false, charSequence.toString());
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-        });
+        cityAutocompleteTextView = (AutoCompleteTextView)findViewById(R.id.locationAutocompleteText);
+        cityAutocompleteTextView.setAdapter(adapterLocations);
+//        cityEditText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+//            @Override
+//            public void onFocusChange(View view, boolean hasFocus) {
+//                if (hasFocus) {
+//                    generateListViewData(true, ((EditText)view).getText().toString());
+//                    System.out.println(((EditText)view).getText().toString());
+//                }
+//            }
+//        });
+//        cityEditText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                generateListViewData(true, charSequence.toString());
+//            }
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//            }
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//            }
+//        });
+
+        ArrayAdapter<String> adapterCuisines = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, cuisines);
+
+        cuisineAutocompleteTextView = findViewById(R.id.cuisineAutocompleteText);
+        cuisineAutocompleteTextView.setAdapter(adapterCuisines);
+//        cuisineAutocompleteTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//                    generateListViewData(false, ((EditText)v).getText().toString());
+//                }
+//            }
+//        });
+//        cuisineAutocompleteTextView.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                generateListViewData(false, charSequence.toString());
+//            }
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//            }
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//            }
+//        });
         duration = findViewById(R.id.durationEditText);
         numberOfSeats = findViewById(R.id.numberOfSeatsEditText);
     }
 
-    private void setupViewEvents() {
-        searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                EditText locationEditText = findViewById(R.id.locationEditText);
-
-                if(locationEditText.hasFocus()) {
-                    locationEditText.setText(((TextView) view).getText().toString());
-                } else {
-                    EditText cuisineEditText = findViewById(R.id.cuisineEditText);
-                    cuisineEditText.setText(((TextView) view).getText().toString());
-                }
-            }
-        });
-
-        Button searchButton = findViewById(R.id.searchButton);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!locations.contains(cityEditText.getText().toString()) || !cuisines.contains(cuisineEditText.getText().toString())){
-                    Toast.makeText(getApplicationContext(), R.string.invalidLocationOrCuisine,
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                presenter.onSearchClick();
-
-
-            }
-        });
-    }
+//    private void setupViewEvents() {
+//        searchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                EditText locationEditText = findViewById(R.id.locationEditText);
+//
+//                if(locationEditText.hasFocus()) {
+//                    locationEditText.setText(((TextView) view).getText().toString());
+//                } else {
+//                    EditText cuisineEditText = findViewById(R.id.cuisineEditText);
+//                    cuisineEditText.setText(((TextView) view).getText().toString());
+//                }
+//            }
+//        });
+//    }
 
     private void generateListViewData(boolean isLocation, String userInput) {
         if (isLocation) {
@@ -287,9 +298,10 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
     }
 
     private void populateArrays(){
-        searchListView = findViewById(R.id.searchListView);
+        // searchListView = findViewById(R.id.searchListView);
 
         locations.add("Novi Sad");
+        locations.add("Novi Beograd");
         locations.add("Beograd");
         //locations.add("Paris");
 
@@ -300,7 +312,7 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
 
         searchListData.addAll(locations);
 
-        searchListView.setAdapter(new ArrayAdapter<String>(this, R.layout.row_location_cuisine, searchListData));
+        // searchListView.setAdapter(new ArrayAdapter<String>(this, R.layout.row_location_cuisine, searchListData));
     }
 
     @Override
@@ -334,12 +346,12 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
 
     @Override
     public String getCuisineType() {
-        return cuisineEditText.getText().toString();
+        return cuisineAutocompleteTextView.getText().toString();
     }
 
     @Override
     public String getCity() {
-        return cityEditText.getText().toString();
+        return cityAutocompleteTextView.getText().toString();
     }
 
     @Override

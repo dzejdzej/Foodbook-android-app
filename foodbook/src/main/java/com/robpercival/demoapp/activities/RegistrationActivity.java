@@ -20,8 +20,8 @@ import com.robpercival.demoapp.presenter.RegistrationPresenter;
 
 import java.util.ArrayList;
 
-import static com.robpercival.demoapp.R.id.cuisineEditText;
-import static com.robpercival.demoapp.R.id.email;
+//import static com.robpercival.demoapp.R.id.cuisineEditText;
+//import static com.robpercival.demoapp.R.id.email;
 
 public class RegistrationActivity extends Activity implements RegistrationPresenter.RegistrationView {
 

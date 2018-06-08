@@ -2,12 +2,32 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorGrayBackground">
+
+        <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:title="NEW RESEVATION"
+            app:titleTextAppearance="@style/BoldText">
+        </android.support.v7.widget.Toolbar>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="255dp"
+            android:layout_marginTop="14dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/reservation" />
 
         <ProgressBar
             android:id="@+id/loader"
@@ -25,14 +45,21 @@
             android:orientation="vertical">
 
 
-            <Button
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pick date"
-                android:padding="16dp"
-                android:id="@+id/datePickerButton"
-                android:background="@color/accent_material_dark"
-                android:textColor="@color/colorWhite" />
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pick date"
+                    android:padding="16dp"
+                    android:id="@+id/datePickerButton"
+                    android:background="@color/accent_material_dark"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
             <TextView
                 android:padding="16dp"
                 android:layout_width="match_parent"
@@ -45,15 +72,22 @@
                 android:textColor="@color/colorBlack"
                 android:id="@+id/datePickedText" />
 
-
-            <Button
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pick time"
-                android:padding="16dp"
-                android:id="@+id/timePickerButton"
-                android:background="@color/accent_material_dark"
-                android:textColor="@color/colorWhite" />
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pick time"
+                    android:padding="16dp"
+                    android:id="@+id/timePickerButton"
+                    android:background="@color/accent_material_dark"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
             <TextView
                 android:padding="16dp"
                 android:layout_width="match_parent"
@@ -71,7 +105,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -102,28 +138,42 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/locationEditText"
+                    <!--<android.support.design.widget.TextInputEditText-->
+                        <!--android:id="@+id/locationEditText"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:ems="10"-->
+                        <!--android:hint="Location (city)"-->
+                        <!--android:inputType="text"-->
+                        <!--android:textColorHint="#000000" />-->
+                    <AutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/locationAutocompleteText"
                         android:ems="10"
-                        android:hint="Location (city)"
-                        android:inputType="text"
-                        android:textColorHint="#000000" />
+                        android:hint="City"
+                        android:inputType="text"/>
                 </android.support.design.widget.TextInputLayout>
 
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/cuisineEditText"
+                    <!--<android.support.design.widget.TextInputEditText-->
+                        <!--android:id="@+id/cuisineEditText"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:ems="10"-->
+                        <!--android:hint="Food type"-->
+                        <!--android:inputType="text"-->
+                        <!--android:textColorHint="#000000" />-->
+                    <AutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/cuisineAutocompleteText"
                         android:ems="10"
                         android:hint="Food type"
-                        android:inputType="text"
-                        android:textColorHint="#000000" />
+                        android:inputType="text"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <Button
@@ -136,10 +186,10 @@
                     android:layout_marginTop="19dp"/>
 
 
-                    <ListView
-                        android:id="@+id/searchListView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                    <!--<ListView-->
+                        <!--android:id="@+id/searchListView"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content" />-->
 
             </LinearLayout>
 
