@@ -58,22 +58,22 @@ public class InviteFriendsActivity extends Activity implements InviteFriendsPres
 
         Button finishButton = (Button) findViewById(R.id.finishButton);
 
-       finishButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               presenter.onFinishClicked(invitedFriends, reservationId);
-           }
-       });
+        finishButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.onFinishClicked(invitedFriends, reservationId);
+            }
+        });
         Button cancelButton = (Button) findViewById(R.id.cancelButton);
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent activity2 = new Intent(InviteFriendsActivity.this, MyReservationsActivity.class);
-                        InviteFriendsActivity.this.startActivity(activity2);
-                        InviteFriendsActivity.this.finish();
-                    }
-                });
+            @Override
+            public void onClick(View view) {
+                Intent activity2 = new Intent(InviteFriendsActivity.this, MyReservationsActivity.class);
+                InviteFriendsActivity.this.startActivity(activity2);
+                InviteFriendsActivity.this.finish();
+            }
+        });
 
         friendsEmail = (EditText) findViewById(R.id.friendsEmail);
         presenter = new InviteFriendsPresenter(this);

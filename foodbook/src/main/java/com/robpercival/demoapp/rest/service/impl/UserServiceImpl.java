@@ -37,6 +37,10 @@ public class UserServiceImpl extends BaseServiceImpl implements  UserService{
     @Override
     public void login(String username, String password, final ServiceCallback<UserDTO> presenterCallback) {
         LoginDTO dto = new LoginDTO(username, password);
+
+        //presenterCallback.onSuccess(new UserDTO());
+
+
         Call<UserDTO> apiCall = userApi.loginUser(dto);
         //tempPolje = presenterCallback;
         apiCall.enqueue(new Callback<UserDTO>() {

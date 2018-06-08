@@ -5,7 +5,7 @@ import com.robpercival.demoapp.rest.dto.ReservationDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
 import com.robpercival.demoapp.rest.dto.user.CreatedReservationDTO;
-import com.robpercival.demoapp.rest.dto.user.UserDTO;
+
 
 import java.util.List;
 

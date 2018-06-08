@@ -18,13 +18,16 @@ public class MyReservationsPresenter {
     private final MyReservationsPresenter.MyReservationsView view;
 
 
-
     public interface MyReservationsView {
 
         void onGetReservationsFail(String s);
+
         void onGetReservationsSuccess();
+
         void onPopulateReservations(List<ReservationDTO> reservations);
+
         void onCancelReservation(List<ReservationDTO> reservations);
+
     };
 
     ReservationService reservationService = ReservationServiceImpl.getInstance();
@@ -45,7 +48,7 @@ public class MyReservationsPresenter {
             @Override
             public void onSuccess(List<ReservationDTO> body) {
 
-                    view.onPopulateReservations(body);
+                view.onPopulateReservations(body);
             }
 
             @Override
@@ -67,12 +70,10 @@ public class MyReservationsPresenter {
             @Override
             public void onSuccess(List<ReservationDTO> body) {
                 view.onCancelReservation(body);
-
             }
 
             @Override
             public void onError(List<ReservationDTO> body) {
-
             }
         });
     }

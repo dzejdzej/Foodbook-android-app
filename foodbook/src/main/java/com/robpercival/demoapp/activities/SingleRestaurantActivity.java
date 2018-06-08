@@ -1,7 +1,7 @@
 package com.robpercival.demoapp.activities;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -52,7 +52,6 @@ public class SingleRestaurantActivity extends FragmentActivity implements OnMapR
 
         reservationRequest = new Gson().fromJson(reservationRequestJson, ReservationRequestDTO.class);
         restaurantDto = new Gson().fromJson(restaurantDtoJson, ReservationResponseDTO.class);
-
 
 
         reserveButton = (Button) findViewById(R.id.reserveButton);

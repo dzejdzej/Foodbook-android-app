@@ -130,7 +130,6 @@ public class ReservationServiceImpl extends BaseServiceImpl implements Reservati
 
             @Override
             public void onFailure(Call<List<ReservationDTO>> call, Throwable t) {
-
             }
         });
 

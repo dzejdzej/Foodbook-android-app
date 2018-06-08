@@ -32,8 +32,13 @@ public class LoginPresenter {
             @Override
             public void onSuccess(UserDTO body) {
 
-                ApplicationState.getInstance().setItem("UserDTO", body);
-                view.onLoginSuccess();
+                if(body == null) {
+                    view.onLoginFail();
+                }
+                else {
+                    ApplicationState.getInstance().setItem("UserDTO", body);
+                    view.onLoginSuccess();
+                }
             }
 
             @Override

@@ -105,6 +105,48 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
         });
 
 
+        timePickedText = (TextView)findViewById(R.id.timePickedText);
+
+        datePickerButton = (Button)findViewById(R.id.datePickerButton);
+        datePickerButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+
+
+                DialogFragment dialogfragment = new DatePickerDialogTheme2();
+
+                dialogfragment.show(getFragmentManager(), "Theme 2");
+
+            }
+        });
+
+
+        timePickerButton = (Button)findViewById(R.id.timePickerButton);
+        timePickerButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(SearchActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        RESERVATION_TIME = selectedHour + ":" + selectedMinute;
+                        timePickedText.setText(RESERVATION_TIME);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+
+            }
+        });
+
+
         presenter = new SearchPresenter(this);
         populateArrays();
         setupEditTexts();
