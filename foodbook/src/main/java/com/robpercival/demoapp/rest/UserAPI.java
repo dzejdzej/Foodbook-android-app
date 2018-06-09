@@ -1,5 +1,6 @@
 package com.robpercival.demoapp.rest;
 
+import com.robpercival.demoapp.rest.dto.user.ChangePasswordDTO;
 import com.robpercival.demoapp.rest.dto.user.LoginDTO;
 import com.robpercival.demoapp.rest.dto.user.RegisterDTO;
 import com.robpercival.demoapp.rest.dto.user.UserDTO;
@@ -19,4 +20,7 @@ public interface UserAPI {
 
     @POST("user/")
     Call<UserDTO> registerUser(@Body RegisterDTO dto);
+
+    @POST("user/change-password")
+    Call<LoginDTO> changePassword(@Body ChangePasswordDTO dto);
 }

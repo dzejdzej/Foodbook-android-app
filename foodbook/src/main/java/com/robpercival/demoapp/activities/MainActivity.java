@@ -175,24 +175,26 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
     private void displaySelectedScreen(int id) {
         Fragment fragment = null;
 
+        Intent intent = null;
+
         switch (id) {
             case R.id.nav_menu1:
-                fragment = new Menu1Fragment();
                 break;
             case R.id.nav_menu2:
-                Intent intent = new Intent(MainActivity.this, MyReservationsActivity.class);
+                intent = new Intent(MainActivity.this, MyReservationsActivity.class);
                 MainActivity.this.startActivity(intent);
-                MainActivity.this.finish();
+                //MainActivity.this.finish();
                 break;
             case R.id.nav_menu3:
-                fragment = new Menu3Fragment();
+               //rad sa mapom implementirati - da se otvori mapa sa svim restoranima u tom gradu
                 break;
             case R.id.nav_menu4:
-                fragment = new Menu4Fragment();
+                intent = new Intent(MainActivity.this, ChangePasswordActivity.class);
+                MainActivity.this.startActivity(intent);
                 break;
             case R.id.nav_menu5:
-                fragment = new Menu5Fragment();
-
+                intent = new Intent(MainActivity.this, SearchActivity.class);
+                MainActivity.this.startActivity(intent);
                 break;
         }
 

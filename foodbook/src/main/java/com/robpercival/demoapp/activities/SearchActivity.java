@@ -326,7 +326,7 @@ public class SearchActivity extends Activity implements SearchPresenter.SearchVi
         activity.putExtra("availableRestaurants", new Gson().toJson(availableRestaurants));
         activity.putExtra("reservationRequest", new Gson().toJson(reservationRequest));
         SearchActivity.this.startActivity(activity);
-        SearchActivity.this.finish();
+        //SearchActivity.this.finish();
     }
 
     public static <T> List<T> stringToArray(String s, Class<T[]> clazz) {

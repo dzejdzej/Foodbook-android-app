@@ -16,4 +16,7 @@
     <string name="inviteReservation">Invite</string>
     <string name="finishReservation">Finish</string>
     <string name="cancelReservation">Cancel</string>
+    <string name="submitUpper">SUBMIT</string>
+    <string name="title_activity_change_password">ChangePasswordActivity</string>
+    <string name="confirmUpper">CONFIRM</string>
 </resources>

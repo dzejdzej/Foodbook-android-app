@@ -105,7 +105,7 @@ public class RegistrationActivity extends Activity implements RegistrationPresen
             }
 
             if(!firstPassword.equals(secondPassword)) {
-                Toast.makeText(getApplicationContext(), "Password do not match!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Passwords do not match!", Toast.LENGTH_LONG).show();
                 return;
             }
         }
@@ -120,130 +120,6 @@ public class RegistrationActivity extends Activity implements RegistrationPresen
 
     }
 
-    /*
-    private void setupEditTexts() {
-        countryEditText = findViewById(R.id.countryInput);
-        countryEditText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus) {
-                    generateListViewData(true, ((EditText)view).getText().toString());
-                }
-            }
-        });
-        countryEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                generateListViewData(true, charSequence.toString());
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-        });
-
-
-        cityEditText = findViewById(R.id.cityInput);
-        cityEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    generateListViewData(false, ((EditText)v).getText().toString());
-                }
-            }
-        });
-        cityEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                generateListViewData(false, charSequence.toString());
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-        });
-    }
-
-    private void setupViewEvents() {
-        countryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                EditText countryEditText = findViewById(R.id.countryInput);
-
-                if(countryEditText.hasFocus()) {
-                    countryEditText.setText(((TextView) view).getText().toString());
-                } else {
-                    EditText cityEditText = findViewById(R.id.cityInput);
-                    cityEditText.setText(((TextView) view).getText().toString());
-                }
-            }
-        });
-
-        Button submitButton = findViewById(R.id.submitButton);
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!countries.contains(countryEditText.getText().toString()) || !cities.contains(cityEditText.getText().toString())){
-                    Toast.makeText(getApplicationContext(), R.string.invalidCountryOrCity,
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                Intent main = new Intent(SearchActivity.this, MainActivity.class);
-                main.putExtra("location", locationEditText.getText());
-                main.putExtra("cuisine", cuisineEditText.getText());
-                SearchActivity.this.startActivity(main);
-            }
-        });
-    }
-
-    private void generateListViewData(boolean isCountry, String userInput) {
-        if (isCountry) {
-            searchListData.clear();
-            String filter = userInput.trim().toLowerCase();
-
-            for (String country : countries) {
-                if(country.trim().toLowerCase().startsWith(filter)) {
-                    searchListData.add(country);
-                }
-            }
-            ((BaseAdapter) countryListView.getAdapter()).notifyDataSetChanged();
-        } else {
-            searchListData.clear();
-            userInput = userInput.trim().toLowerCase();
-
-            for (String city : cities) {
-                if(city.trim().toLowerCase().startsWith(userInput)) {
-                    searchListData.add(city);
-                }
-            }
-            ((BaseAdapter) cityListView.getAdapter()).notifyDataSetChanged();
-        }
-
-    }
-
-    private void populateArrays(){
-        countryListView = findViewById(R.id.countryListView);
-
-
-        countries.add("London");
-        countries.add("Madrid");
-        countries.add("Paris");
-
-        cities.add("Italian");
-        cities.add("Greek");
-        cities.add("Serbian");
-
-        searchListData.addAll(countries);
-
-        countryListView.setAdapter(new ArrayAdapter<String>(this, R.layout.row_location_cuisine, searchListData));
-    }
-
-*/
     @Override
     public void onRegistrationFail(String reason) {
         Toast.makeText(getApplicationContext(), "Registration failed!", Toast.LENGTH_LONG).show();
@@ -254,7 +130,7 @@ public class RegistrationActivity extends Activity implements RegistrationPresen
     public void onRegistrationSuccess() {
         Intent loginActivity = new Intent(RegistrationActivity.this, LoginActivity.class);
         RegistrationActivity.this.startActivity(loginActivity);
-        RegistrationActivity.this.finish();
+        //RegistrationActivity.this.finish();
     }
 
     @Override

@@ -58,7 +58,7 @@ public class LoginActivity extends Activity implements LoginPresenter.LoginView 
     private void gotoRegisterActivity() {
         Intent loginIntent = new Intent(LoginActivity.this, RegistrationActivity.class);
         LoginActivity.this.startActivity(loginIntent);
-        LoginActivity.this.finish();
+        //LoginActivity.this.finish();
     }
 
     @Override
@@ -70,6 +70,6 @@ public class LoginActivity extends Activity implements LoginPresenter.LoginView 
     public void onLoginSuccess() {
         Intent searchActivity = new Intent(LoginActivity.this, SearchActivity.class);
         LoginActivity.this.startActivity(searchActivity);
-        LoginActivity.this.finish();
+        //LoginActivity.this.finish();
     }
 }

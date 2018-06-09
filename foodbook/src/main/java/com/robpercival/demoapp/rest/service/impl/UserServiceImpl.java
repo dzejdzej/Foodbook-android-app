@@ -1,6 +1,9 @@
 package com.robpercival.demoapp.rest.service.impl;
 
+import android.util.Log;
+
 import com.robpercival.demoapp.rest.UserAPI;
+import com.robpercival.demoapp.rest.dto.user.ChangePasswordDTO;
 import com.robpercival.demoapp.rest.dto.user.LoginDTO;
 import com.robpercival.demoapp.rest.dto.user.RegisterDTO;
 import com.robpercival.demoapp.rest.dto.user.UserDTO;
@@ -76,6 +79,31 @@ public class UserServiceImpl extends BaseServiceImpl implements  UserService{
 
             @Override
             public void onFailure(Call<UserDTO> call, Throwable t) {
+            }
+        });
+
+    }
+
+    @Override
+    public void changePassword(long userId, String oldPassword, String newPassword, final ServiceCallback<LoginDTO> presenterCallback) {
+        ChangePasswordDTO dto = new ChangePasswordDTO(userId, newPassword);
+
+        //presenterCallback.onSuccess(new UserDTO());
+
+
+        Call<LoginDTO> apiCall = userApi.changePassword(dto);
+        //tempPolje = presenterCallback;
+        apiCall.enqueue(new Callback<LoginDTO>() {
+
+            @Override
+            public void onResponse(Call<LoginDTO> call, Response<LoginDTO> response) {
+                LoginDTO body = response.body();
+                presenterCallback.onSuccess(body);
+            }
+
+            @Override
+            public void onFailure(Call<LoginDTO> call, Throwable t) {
+
             }
         });
 

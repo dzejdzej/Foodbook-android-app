@@ -26,7 +26,7 @@
         <item
             android:id="@+id/nav_menu4"
             android:icon="@drawable/ic_information"
-            android:title="Information" />
+            android:title="Change password" />
         <item
             android:id="@+id/nav_menu5"
             android:icon="@drawable/ic_search"

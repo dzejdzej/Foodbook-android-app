@@ -11,7 +11,7 @@
     <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorToolbar"
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
         app:title="FOODBOOK"
         app:titleTextAppearance="@style/BoldText">
@@ -35,7 +35,8 @@
         app:errorEnabled="true"
         android:paddingTop="16dp"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:paddingRight="16dp"
+        app:errorTextAppearance="@style/MyAppTheme.TextInputLayout">
 
     <android.support.design.widget.TextInputEditText
             android:layout_width = "match_parent"
@@ -53,7 +54,8 @@
         android:paddingBottom="16dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        app:errorTextAppearance="@style/MyAppTheme.TextInputLayout">
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

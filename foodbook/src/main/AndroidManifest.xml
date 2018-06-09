@@ -63,8 +63,12 @@
 
         <activity
             android:name=".activities.SingleRestaurantActivity"
-            android:label="@string/title_activity_single_restauirant"></activity>
-        <activity android:name=".activities.MyReservationsActivity"></activity>
+            android:label="@string/title_activity_single_restauirant" />
+        <activity android:name=".activities.MyReservationsActivity" />
+        <activity
+            android:name=".activities.ChangePasswordActivity"
+            android:label="@string/title_activity_change_password"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>
