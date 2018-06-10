@@ -22,4 +22,5 @@
     <string name="inviteUpper">INVITE</string>
     <string name="finishUpper">FINISH</string>
     <string name="cancelUpper">CANCEL</string>
+    <string name="callRestaurant">CALL US NOW</string>
 </resources>
