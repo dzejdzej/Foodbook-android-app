@@ -1,12 +1,10 @@
 package com.robpercival.demoapp.activities;
 
 import android.content.Intent;
-
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -31,10 +30,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.robpercival.demoapp.R;
+import com.robpercival.demoapp.adapters.RowCommentAdapter;
 import com.robpercival.demoapp.presenter.SingleRestaurantPresenter;
+import com.robpercival.demoapp.rest.dto.CommentDto;
 import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
 import com.robpercival.demoapp.state.ApplicationState;
+
+import java.util.List;
 
 public class SingleRestaurantActivity extends AppCompatActivity implements OnMapReadyCallback, SingleRestaurantPresenter.SingleRestaurantView {
 
@@ -47,6 +50,9 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
     private Button reserveButton;
     private String restaurantDtoJson;
     private ReservationResponseDTO restaurantDto;
+    private List<CommentDto> comments;
+    private ListView commentsListView;
+    private RowCommentAdapter adapter;
 
 
     @Override
@@ -84,6 +90,7 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
         setupRestaurantData();
 
         presenter = new SingleRestaurantPresenter(this);
+        presenter.getAllCommentsForRestaurant(restaurantId);
     }
 
 
@@ -236,5 +243,17 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
         activity.putExtra("reservationId", reservationId);
         SingleRestaurantActivity.this.startActivity(activity);
         SingleRestaurantActivity.this.finish();
+    }
+
+    @Override
+    public void onPopulateComments(List<CommentDto> comments) {
+
+        this.comments = comments;
+        commentsListView = findViewById(R.id.commentsListView);
+
+        adapter = new RowCommentAdapter(this, this.comments);
+
+        commentsListView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 }
