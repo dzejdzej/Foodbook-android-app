@@ -22,10 +22,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
-    //compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.1.RELEASE'
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:support-core-utils:27.1.1'
