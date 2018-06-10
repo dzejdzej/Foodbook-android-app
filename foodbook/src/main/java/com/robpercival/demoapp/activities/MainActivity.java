@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
 
         setContentView(R.layout.activity_main);
 
+        setTitle("Home");
+
         availableRestaurantsJson = null;
         reservationRequestJson = null;
         Bundle extras = getIntent().getExtras();
@@ -179,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
 
         switch (id) {
             case R.id.nav_menu1:
-                break;
+                return;
             case R.id.nav_menu2:
                 intent = new Intent(MainActivity.this, MyReservationsActivity.class);
                 MainActivity.this.startActivity(intent);

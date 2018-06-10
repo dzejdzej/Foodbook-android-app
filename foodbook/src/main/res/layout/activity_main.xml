@@ -34,7 +34,7 @@
             android:layout_alignParentStart="true" />
     </RelativeLayout>
 
-    <include layout="@layout/content_main" />
+   <!-- <include layout="@layout/content_main" />-->
 
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
     <android.support.design.widget.NavigationView

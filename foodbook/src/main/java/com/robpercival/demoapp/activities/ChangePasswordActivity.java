@@ -1,14 +1,22 @@
 package com.robpercival.demoapp.activities;
 
-import android.app.Activity;
+
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,10 +25,13 @@ import android.widget.Toast;
 import com.robpercival.demoapp.R;
 import com.robpercival.demoapp.presenter.ChangePasswordPresenter;
 
-import static com.robpercival.demoapp.R.id.editTxtUsername;
+/**
+ * Created by User on 6/10/2018.
+ */
 
-public class ChangePasswordActivity extends Activity implements ChangePasswordPresenter.ChangePasswordView {
+public class ChangePasswordActivity extends AppCompatActivity implements ChangePasswordPresenter.ChangePasswordView {
 
+    private DrawerLayout drawerLayout;
     private ChangePasswordPresenter presenter;
     private EditText oldPassword;
     private EditText newPassword;
@@ -30,6 +41,8 @@ public class ChangePasswordActivity extends Activity implements ChangePasswordPr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
+
+        setTitle("Change password");
 
         oldPassword = (EditText) findViewById(R.id.oldPassword);
         newPassword = (EditText) findViewById(R.id.newPassword);
@@ -48,6 +61,7 @@ public class ChangePasswordActivity extends Activity implements ChangePasswordPr
             }
         });
 
+        setupDrawerAndToolbar();
 
         presenter = new ChangePasswordPresenter(this);
     }
@@ -84,6 +98,94 @@ public class ChangePasswordActivity extends Activity implements ChangePasswordPr
     };
 
 
+    private void setupDrawerAndToolbar() {
+        Toolbar toolbar = findViewById(R.id.my_toolbar_change_password);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
+
+        this.drawerLayout = findViewById(R.id.drawer_layout_change_password);
+
+        Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),R.drawable.user40x40);
+        toolbar.setOverflowIcon(drawable);
+
+        NavigationView navigationView = findViewById(R.id.nav_view_change_password);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        // set item as selected to persist highlight
+                        menuItem.setChecked(true);
+                        int id = menuItem.getItemId();
+
+                        // close drawer when item is tapped
+                        drawerLayout.closeDrawers();
+
+                        displaySelectedScreen(id);
+                        // Add code here to update the UI based on the item selected
+                        // For example, swap UI fragments here
+
+                        return true;
+                    }
+                });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.logout_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void displaySelectedScreen(int id) {
+        Fragment fragment = null;
+
+        Intent intent = null;
+
+        switch (id) {
+            case R.id.nav_menu1:
+                intent = new Intent(ChangePasswordActivity.this, MainActivity.class);
+                ChangePasswordActivity.this.startActivity(intent);
+                break;
+            case R.id.nav_menu2:
+                intent = new Intent(ChangePasswordActivity.this, MyReservationsActivity.class);
+                ChangePasswordActivity.this.startActivity(intent);
+                //MainActivity.this.finish();
+                break;
+            case R.id.nav_menu3:
+                //rad sa mapom implementirati - da se otvori mapa sa svim restoranima u tom gradu
+                break;
+            case R.id.nav_menu4:
+               return;
+            case R.id.nav_menu5:
+                intent = new Intent(ChangePasswordActivity.this, SearchActivity.class);
+                ChangePasswordActivity.this.startActivity(intent);
+                break;
+        }
+
+        if(fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame_change_password, fragment);
+            ft.commit();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_change_password);
+        drawer.closeDrawer(GravityCompat.START);
+    }
+
     private void gotoMainActivity() {
         //
         if (oldPassword.getText().toString().length() != 0 && newPassword.getText().toString().length() != 0 && repeatedNewPassword.getText().toString().length() != 0)
@@ -91,6 +193,7 @@ public class ChangePasswordActivity extends Activity implements ChangePasswordPr
         else
             Toast.makeText(getApplicationContext(), "All fields have to be inserted!", Toast.LENGTH_LONG).show();
     }
+
 
     @Override
     public void onChangePasswordFail() {
@@ -102,5 +205,6 @@ public class ChangePasswordActivity extends Activity implements ChangePasswordPr
         Intent mainActivity = new Intent(ChangePasswordActivity.this, MainActivity.class);
         ChangePasswordActivity.this.startActivity(mainActivity);
     }
-
 }
+
+

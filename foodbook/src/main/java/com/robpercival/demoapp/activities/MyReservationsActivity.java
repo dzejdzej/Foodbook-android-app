@@ -32,6 +32,7 @@ import com.robpercival.demoapp.fragments.Menu5Fragment;
 
 import com.robpercival.demoapp.presenter.MyReservationsPresenter;
 import com.robpercival.demoapp.rest.dto.ReservationDTO;
+import com.robpercival.demoapp.rest.dto.user.ChangePasswordDTO;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class MyReservationsActivity extends AppCompatActivity implements MyReser
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_reservations);
-        setTitle("My Reservations");
+        setTitle("My reservations");
         setupDrawerAndToolbar();
 
         presenter = new MyReservationsPresenter(this);
@@ -112,30 +113,31 @@ public class MyReservationsActivity extends AppCompatActivity implements MyReser
     private void displaySelectedScreen(int id) {
         Fragment fragment = null;
 
+        Intent intent = null;
+
         switch (id) {
             case R.id.nav_menu1:
-                fragment = new Menu1Fragment();
+                intent = new Intent(MyReservationsActivity.this, MainActivity.class);
+                MyReservationsActivity.this.startActivity(intent);
                 break;
             case R.id.nav_menu2:
-                Intent intent = new Intent(MyReservationsActivity.this, MyReservationsActivity.class);
-                MyReservationsActivity.this.startActivity(intent);
-                MyReservationsActivity.this.finish();
-                break;
+                return;
             case R.id.nav_menu3:
-                fragment = new Menu3Fragment();
+                //dodati rad sa mapom
                 break;
             case R.id.nav_menu4:
-                fragment = new Menu4Fragment();
+                intent = new Intent(MyReservationsActivity.this, ChangePasswordActivity.class);
+                MyReservationsActivity.this.startActivity(intent);
                 break;
             case R.id.nav_menu5:
-                fragment = new Menu5Fragment();
-
+                intent = new Intent(MyReservationsActivity.this, SearchActivity.class);
+                MyReservationsActivity.this.startActivity(intent);
                 break;
         }
 
         if(fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame_myReservations, fragment);
+            ft.replace(R.id.content_frame_my_reservations, fragment);
             ft.commit();
         }
 

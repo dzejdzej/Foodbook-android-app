@@ -60,7 +60,7 @@ public class SearchPresenter {
             @Override
             public void onSuccess(List<ReservationResponseDTO> body) {
                 Log.d("DTOS", body.toString());
-                view.hideLoader();
+                //view.hideLoader();
                 view.onSearchSuccess(body, dto);
             }
 

@@ -12,6 +12,7 @@ public class ReservationDTO {
     private Date endDate;
     private String owner;
     private String restaurantName;
+    private String imageUrl;
 
     public ReservationDTO() {
 
@@ -55,5 +56,13 @@ public class ReservationDTO {
 
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

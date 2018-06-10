@@ -28,7 +28,7 @@ public class LoginPresenter {
 
     public void onLoginClick(String username, String password) {
 
-        view.onLoginSuccess();
+
         userService.login(username, password, new ServiceCallback<UserDTO>() {
             @Override
             public void onSuccess(UserDTO body) {

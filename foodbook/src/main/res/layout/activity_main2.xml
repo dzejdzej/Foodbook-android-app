@@ -13,12 +13,12 @@
         android:layout_height="match_parent"
         android:background="@color/colorGrayBackground">
 
-        <include layout="@layout/content_main"
+    <!--    <include layout="@layout/content_main"
             android:id="@+id/include"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_below="@+id/my_toolbar"
-            />
+            />-->
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/my_toolbar"

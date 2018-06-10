@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:background="@color/colorToolbar"
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:title="REGISTRATION"
+        app:title="Registration"
+        android:layout_gravity="center_horizontal"
         app:titleTextAppearance="@style/BoldText">
     </android.support.v7.widget.Toolbar>
 

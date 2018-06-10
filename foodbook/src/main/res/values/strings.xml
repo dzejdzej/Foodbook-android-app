@@ -19,4 +19,7 @@
     <string name="submitUpper">SUBMIT</string>
     <string name="title_activity_change_password">ChangePasswordActivity</string>
     <string name="confirmUpper">CONFIRM</string>
+    <string name="inviteUpper">INVITE</string>
+    <string name="finishUpper">FINISH</string>
+    <string name="cancelUpper">CANCEL</string>
 </resources>

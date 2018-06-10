@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:background="@color/colorToolbar"
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:title="FOODBOOK"
+        app:title="Foodbook"
+        android:layout_gravity="center_horizontal"
         app:titleTextAppearance="@style/BoldText">
     </android.support.v7.widget.Toolbar>
 

@@ -1,16 +1,20 @@
 package com.robpercival.demoapp.adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.robpercival.demoapp.R;
 import com.robpercival.demoapp.activities.MyReservationsActivity;
 import com.robpercival.demoapp.rest.dto.ReservationDTO;
+import com.robpercival.demoapp.state.ApplicationState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +62,13 @@ public class RowReservationAdapter extends BaseAdapter {
         private String restaurantName;
 
     */
+
+        dto.setImageUrl(data.get(position).getImageUrl());
+        ImageView imageView = vi.findViewById(R.id.restaurantImageView);
+        Drawable myDrawable = myReservationsActivity.getResources().getDrawable(R.drawable.restaurant);
+        Glide.with(this.myReservationsActivity)
+                .load(ApplicationState.SERVER_IP + "/" + dto.getImageUrl())
+                .into(imageView);
         TextView restaurantNameTextView = vi.findViewById(R.id.restaurantNameTextView);
 
         restaurantNameTextView.setText(dto.getRestaurantName());
