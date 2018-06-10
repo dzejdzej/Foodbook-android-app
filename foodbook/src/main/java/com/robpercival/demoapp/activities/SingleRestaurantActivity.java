@@ -63,11 +63,17 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
             reservationRequestJson = extras.getString("reservationRequest");
             restaurantId = extras.getLong("restaurantId");
             restaurantDtoJson = extras.getString("restaurantDto");
+            reservationRequest = new Gson().fromJson(reservationRequestJson, ReservationRequestDTO.class);
+            restaurantDto = new Gson().fromJson(restaurantDtoJson, ReservationResponseDTO.class);
+            ApplicationState.getInstance().setItem("reservationRequestSingleRestaurant", reservationRequest);
+            ApplicationState.getInstance().setItem("restaurantDtoSingleRestaurant", restaurantDto);
+        } else {
+            reservationRequest = (ReservationRequestDTO) ApplicationState.getInstance().getItem("reservationRequestSingleRestaurant");
+            restaurantDto = (ReservationResponseDTO) ApplicationState.getInstance().getItem("restaurantDtoSingleRestaurant");
         }
 
-        reservationRequest = new Gson().fromJson(reservationRequestJson, ReservationRequestDTO.class);
-        restaurantDto = new Gson().fromJson(restaurantDtoJson, ReservationResponseDTO.class);
-        restaurantContactNumber = restaurantDto.getRestaurantContact();
+          restaurantContactNumber = restaurantDto.getRestaurantContact();
+
 
 
         reserveButton = (Button) findViewById(R.id.reserveButton);

@@ -4,6 +4,7 @@ import com.robpercival.demoapp.rest.dto.user.UserDTO;
 import com.robpercival.demoapp.rest.service.ServiceCallback;
 import com.robpercival.demoapp.rest.service.UserService;
 import com.robpercival.demoapp.rest.service.impl.UserServiceImpl;
+import com.robpercival.demoapp.services.FirebaseIDService;
 import com.robpercival.demoapp.state.ApplicationState;
 
 /**
@@ -38,7 +39,9 @@ public class LoginPresenter {
                 }
                 else {
                     ApplicationState.getInstance().setItem("UserDTO", body);
+                    FirebaseIDService.subscribeToUsernameTopic("" +body.getUserId());
                     view.onLoginSuccess();
+
                 }
             }
 

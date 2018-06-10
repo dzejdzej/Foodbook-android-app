@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.robpercival.demoapp.R;
 import com.robpercival.demoapp.presenter.InviteFriendsPresenter;
+import com.robpercival.demoapp.state.ApplicationState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,9 @@ public class InviteFriendsActivity extends AppCompatActivity implements InviteFr
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             reservationId = extras.getLong("reservationId");
+            ApplicationState.getInstance().setItem("reservationIdInviteFriends", reservationId);
+        } else {
+            reservationId = (long) ApplicationState.getInstance().getItem("reservationIdInviteFriends");
         }
 
 

@@ -32,6 +32,7 @@ import com.robpercival.demoapp.fragments.Menu5Fragment;
 import com.robpercival.demoapp.presenter.MainPresenter;
 import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
+import com.robpercival.demoapp.state.ApplicationState;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -68,10 +69,15 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
         if (extras != null) {
             availableRestaurantsJson = extras.getString("availableRestaurants");
             reservationRequestJson = extras.getString("reservationRequest");
+            availableRestaurants = stringToArray(availableRestaurantsJson, ReservationResponseDTO[].class);
+            reservationRequest = new Gson().fromJson(reservationRequestJson, ReservationRequestDTO.class);
+            ApplicationState.getInstance().setItem("availableRestaurants", availableRestaurants);
+            ApplicationState.getInstance().setItem("reservationRequest", reservationRequest);
+        }else {
+            availableRestaurants = (List) ApplicationState.getInstance().getItem("availableRestaurants");
+            reservationRequest = (ReservationRequestDTO) ApplicationState.getInstance().getItem("reservationRequest");
         }
 
-        availableRestaurants = stringToArray(availableRestaurantsJson, ReservationResponseDTO[].class);
-        reservationRequest = new Gson().fromJson(reservationRequestJson, ReservationRequestDTO.class);
 
         //Log.d("Velicina dtos: ", jsonMyObject);
 
@@ -80,8 +86,8 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
 
 
 
-        System.out.println(getIntent().getExtras().get("location") + "");
-        System.out.println(getIntent().getExtras().get("cuisine") + "");
+       // System.out.println(getIntent().getExtras().get("location") + "");
+       // System.out.println(getIntent().getExtras().get("cuisine") + "");
 
         mainPresenter = new MainPresenter(this);
 

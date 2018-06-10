@@ -375,7 +375,9 @@ public class SearchActivity extends AppCompatActivity implements SearchPresenter
 
         switch (id) {
             case R.id.nav_menu1:
-                return;
+                intent = new Intent(SearchActivity.this, MainActivity.class);
+                SearchActivity.this.startActivity(intent);
+                break;
             case R.id.nav_menu2:
                 intent = new Intent(SearchActivity.this, MyReservationsActivity.class);
                 SearchActivity.this.startActivity(intent);
@@ -389,7 +391,9 @@ public class SearchActivity extends AppCompatActivity implements SearchPresenter
                 SearchActivity.this.startActivity(intent);
                 break;
             case R.id.nav_menu5:
-               return;
+                intent = new Intent(SearchActivity.this, SearchActivity.class);
+                SearchActivity.this.startActivity(intent);
+                break;
         }
 
         if(fragment != null) {
