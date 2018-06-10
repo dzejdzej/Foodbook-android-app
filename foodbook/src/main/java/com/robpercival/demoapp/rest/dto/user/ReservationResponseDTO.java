@@ -10,6 +10,7 @@ public class ReservationResponseDTO {
     private long restaurantId;
     private String imageUrl;
     private String about;
+    private String restaurantContact;
 
     public ReservationResponseDTO() {
 
@@ -47,4 +48,11 @@ public class ReservationResponseDTO {
         this.about = about;
     }
 
+    public String getRestaurantContact() {
+        return restaurantContact;
+    }
+
+    public void setRestaurantContact(String restaurantContact) {
+        this.restaurantContact = restaurantContact;
+    }
 }

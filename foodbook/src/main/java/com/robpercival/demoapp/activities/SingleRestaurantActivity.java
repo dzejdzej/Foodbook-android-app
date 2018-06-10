@@ -3,6 +3,7 @@ package com.robpercival.demoapp.activities;
 import android.content.Intent;
 
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -44,9 +45,10 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
     private ReservationRequestDTO reservationRequest;
     private long restaurantId;
     private SingleRestaurantPresenter presenter;
-    private Button reserveButton;
+    private Button reserveButton, callPhoneButton;
     private String restaurantDtoJson;
     private ReservationResponseDTO restaurantDto;
+    private String restaurantContactNumber;
 
 
     @Override
@@ -65,6 +67,7 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
 
         reservationRequest = new Gson().fromJson(reservationRequestJson, ReservationRequestDTO.class);
         restaurantDto = new Gson().fromJson(restaurantDtoJson, ReservationResponseDTO.class);
+        restaurantContactNumber = restaurantDto.getRestaurantContact();
 
 
         reserveButton = (Button) findViewById(R.id.reserveButton);
@@ -82,6 +85,17 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
 
         setupDrawerAndToolbar();
         setupRestaurantData();
+
+        callPhoneButton = (Button) findViewById(R.id.callPhoneButton);
+        callPhoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                String phoneNum = "tel:" + restaurantContactNumber;
+                callIntent.setData(Uri.parse(phoneNum));
+                startActivity(callIntent);
+            }
+        });
 
         presenter = new SingleRestaurantPresenter(this);
     }

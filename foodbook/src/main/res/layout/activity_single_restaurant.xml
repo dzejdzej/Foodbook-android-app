@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:textColor="@color/colorTextGray"
+                android:layout_gravity="center"
                 android:textStyle="normal"/>
 
             <TextView
@@ -54,17 +55,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
+                android:layout_gravity="center"
                 android:textColor="@color/colorTextGray"
                 android:textStyle="normal" />
 
-
-            <Button
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/search"
-                android:id="@+id/reserveButton"
-                android:background="@color/accent_material_dark"
-                android:textColor="@color/colorWhite" />
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:paddingLeft="35dp"
+                android:paddingRight="35dp"
+                android:orientation="vertical">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/reserveButton"
+                    android:background="@color/accent_material_dark"
+                    android:textColor="@color/colorWhite" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/callPhoneButton"
+                    android:text="@string/callRestaurant"
+                    android:background="@color/colorCall"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
 
 
             <fragment

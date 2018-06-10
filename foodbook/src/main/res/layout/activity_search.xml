@@ -110,7 +110,7 @@ android:fitsSystemWindows="true">
                     android:id="@+id/durationEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Duration (days)"
+                    android:hint="Duration (hours)"
                     android:inputType="number"
                     android:textColorHint="#000000" />
             </android.support.design.widget.TextInputLayout>
