@@ -239,9 +239,10 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng latLng = new LatLng(this.restaurantDto.getX(), this.restaurantDto.getY());
+        mMap.addMarker(new MarkerOptions().position(latLng).title(this.restaurantDto.getRestaurantName()));
+        /*mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));*/
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,16));
     }
 
     private void setupRestaurantData() {

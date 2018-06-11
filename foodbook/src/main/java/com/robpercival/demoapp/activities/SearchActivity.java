@@ -73,7 +73,7 @@ public class SearchActivity extends AppCompatActivity implements SearchPresenter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        setTitle("Search for restaurants");
+        setTitle(R.string.searchRestaurant);
 
         pgsBar = (ProgressBar)findViewById(R.id.loader);
         searchView = findViewById(R.id.searchLayout);

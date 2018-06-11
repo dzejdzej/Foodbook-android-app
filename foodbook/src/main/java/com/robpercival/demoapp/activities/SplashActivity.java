@@ -2,10 +2,13 @@ package com.robpercival.demoapp.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 
 import com.robpercival.demoapp.R;
+
+import java.util.Locale;
 
 public class SplashActivity extends Activity {
 
@@ -13,6 +16,11 @@ public class SplashActivity extends Activity {
 
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        Locale locale = new Locale("sr");
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
         setContentView(R.layout.activity_splash);
 
         new Handler().postDelayed(new Runnable(){

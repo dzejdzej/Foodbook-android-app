@@ -4,22 +4,22 @@
         <item
             android:id="@+id/nav_menu1"
             android:icon="@drawable/ic_home"
-            android:title="Home" />
+            android:title="@string/home" />
         <item
             android:id="@+id/nav_menu2"
             android:icon="@drawable/ic_history"
-            android:title="Reservations" />
+            android:title="@string/reservations" />
         <item
             android:id="@+id/nav_menu3"
             android:icon="@drawable/menu40x40"
-            android:title="Map" />
+            android:title="@string/map" />
         <item
             android:id="@+id/nav_menu4"
             android:icon="@drawable/ic_information"
-            android:title="Change password" />
+            android:title="@string/changePassword" />
         <item
             android:id="@+id/nav_menu5"
             android:icon="@drawable/ic_search"
-            android:title="Search" />
+            android:title="@string/searchSmall" />
     </group>
 </menu>

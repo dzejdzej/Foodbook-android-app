@@ -42,7 +42,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements ChangeP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
-        setTitle("Change password");
+        setTitle(R.string.changePassword);
 
         oldPassword = (EditText) findViewById(R.id.oldPassword);
         newPassword = (EditText) findViewById(R.id.newPassword);

@@ -22,6 +22,25 @@
     <string name="inviteUpper">INVITE</string>
     <string name="finishUpper">FINISH</string>
     <string name="cancelUpper">CANCEL</string>
+    <string name="home">Home</string>
+    <string name="reservations">Reservations</string>
+    <string name="map">Map</string>
+    <string name="changePassword">Change password</string>
+    <string name="searchSmall">Search</string>
     <string name="callRestaurant">CALL US NOW</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="pickDate">PICK DATE</string>
+    <string name="pickTime">PICK TIME</string>
+    <string name="duration">Duration (hours)</string>
+    <string name="persons">Persons</string>
+    <string name="city">City</string>
+    <string name="foodType">Food type</string>
+    <string name="searchRestaurant">Search for restaurants</string>
+    <string name="information">Information</string>
+    <string name="myReservations">My reservations</string>
+    <string name="oldPassword">Old password</string>
+    <string name="newPassword">New password</string>
+    <string name="repeatNewPassword">Repeat new password</string>
     <string name="addComment">Add comment</string>
 </resources>
