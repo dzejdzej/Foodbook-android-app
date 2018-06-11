@@ -43,8 +43,8 @@ public class RowCommentAdapter extends BaseAdapter {
         TextView commentText = vi.findViewById(R.id.commentText);
         commentText.setText(dto.getText());
 
-        TextView commentDate = vi.findViewById(R.id.commentDate);
-        commentDate.setText(dto.getDate().toString());
+        //TextView commentDate = vi.findViewById(R.id.commentDate);
+        //commentDate.setText(dto.getDate().toString());
 
         return vi;
     }

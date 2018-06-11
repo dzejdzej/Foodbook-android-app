@@ -23,4 +23,5 @@
     <string name="finishUpper">FINISH</string>
     <string name="cancelUpper">CANCEL</string>
     <string name="callRestaurant">CALL US NOW</string>
+    <string name="addComment">Add comment</string>
 </resources>

@@ -6,35 +6,24 @@
     android:rowCount="1">
 
     <GridLayout
+        android:layout_column="0"
+        android:layout_row="0"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_column="1"
-        android:layout_columnSpan="2"
-        android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:layout_row="0"
-        android:columnCount="1"
-        android:rowCount="3">
-
-        <TextView
-            android:id="@+id/commentOwnerName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:typeface="sans" />
+        android:layout_gravity="center"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height = "match_parent"
+            android:background="@color/colorGrayBackground"
             android:layout_column="0"
             android:layout_row="0"
-            android:background="@color/colorGrayBackground"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/commentText"
+                android:id="@+id/commentOwnerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -50,8 +39,24 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:typeface="sans" />
+
+            <TextView
+                android:id="@+id/commentText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/cancelUpper"-->
+                <!--android:id="@+id/cancelMyReservationButton"-->
+                <!--android:layout_marginBottom="19dp"-->
+                <!--android:background="@color/accent_material_dark"-->
+                <!--android:textColor="@color/colorWhite"/>-->
         </LinearLayout>
-
     </GridLayout>
-
 </GridLayout>

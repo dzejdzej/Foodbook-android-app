@@ -17,10 +17,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -36,6 +38,7 @@ import com.robpercival.demoapp.presenter.SingleRestaurantPresenter;
 import com.robpercival.demoapp.rest.dto.CommentDto;
 import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
+import com.robpercival.demoapp.rest.dto.user.UserDTO;
 import com.robpercival.demoapp.state.ApplicationState;
 
 import java.util.List;
@@ -48,13 +51,14 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
     private ReservationRequestDTO reservationRequest;
     private long restaurantId;
     private SingleRestaurantPresenter presenter;
-    private Button reserveButton, callPhoneButton;
+    private Button reserveButton, callPhoneButton, addCommentButton;
     private String restaurantDtoJson;
     private ReservationResponseDTO restaurantDto;
     private List<CommentDto> comments;
     private ListView commentsListView;
     private RowCommentAdapter adapter;
     private String restaurantContactNumber;
+    private EditText commentText;
 
 
     @Override
@@ -91,6 +95,17 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
             }
         });
 
+        commentText = (EditText) findViewById(R.id.addComment);
+
+        addCommentButton = (Button) findViewById(R.id.addCommentButton);
+
+        addCommentButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                addComment();
+            }
+        });
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -111,6 +126,17 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
 
         presenter = new SingleRestaurantPresenter(this);
         presenter.getAllCommentsForRestaurant(restaurantId);
+    }
+
+    private void addComment() {
+        if(commentText.getText().toString().length()!=0)
+
+            presenter.addComment(
+                    commentText.getText().toString(),
+                    ((UserDTO)ApplicationState.getInstance().getItem("UserDTO")).getName(),
+                    restaurantId);
+        else
+            Toast.makeText(getApplicationContext(), "You can't post an empty comment.", Toast.LENGTH_LONG).show();
     }
 
 
@@ -206,7 +232,6 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
 
     public void makeAReservation() {
         presenter.onReservationClick(reservationRequest, restaurantId);
-
     }
 
     @Override

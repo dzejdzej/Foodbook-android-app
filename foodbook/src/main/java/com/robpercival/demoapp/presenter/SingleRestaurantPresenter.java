@@ -1,5 +1,7 @@
 package com.robpercival.demoapp.presenter;
 
+import android.util.Log;
+
 import com.robpercival.demoapp.rest.dto.CommentDto;
 import com.robpercival.demoapp.rest.dto.user.CreatedReservationDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
@@ -77,5 +79,39 @@ public class SingleRestaurantPresenter {
             }
         });
     }
+
+
+    public void addComment(String commentText, String username, long restaurantId) {
+
+        CommentDto comm = new CommentDto();
+        comm.setUser(username);
+        comm.setText(commentText);
+        comm.setRestaurantId(restaurantId);
+
+        commentService.addComment(comm, new ServiceCallback<CommentDto>() {
+            @Override
+            public void onSuccess(CommentDto body) {
+                Log.d("tag","Succesfully added comment!");
+            }
+
+            @Override
+            public void onError(CommentDto body) {
+
+            }
+        });
+
+        commentService.getAllCommentsForRestaurant(restaurantId, new ServiceCallback<List<CommentDto>>() {
+
+            @Override
+            public void onSuccess(List<CommentDto> body) {
+                view.onPopulateComments(body);
+            }
+
+            @Override
+            public void onError(List<CommentDto> body) {
+            }
+        });
+    }
+
 }
 
