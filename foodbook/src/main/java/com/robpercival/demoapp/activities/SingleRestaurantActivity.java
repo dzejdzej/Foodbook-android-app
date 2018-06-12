@@ -1,7 +1,10 @@
 package com.robpercival.demoapp.activities;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,9 +18,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -46,8 +51,12 @@ import com.robpercival.demoapp.services.FirebaseIDService;
 
 import com.robpercival.demoapp.state.ApplicationState;
 
+import org.w3c.dom.Comment;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class SingleRestaurantActivity extends AppCompatActivity implements OnMapReadyCallback, SingleRestaurantPresenter.SingleRestaurantView {
 
@@ -57,7 +66,7 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
     private ReservationRequestDTO reservationRequest;
     private long restaurantId;
     private SingleRestaurantPresenter presenter;
-    private Button reserveButton, callPhoneButton, addCommentButton;
+    private Button reserveButton, callPhoneButton, addCommentButton, viewCommentsButton;
     private String restaurantDtoJson;
     private ReservationResponseDTO restaurantDto;
     private List<CommentDto> comments;
@@ -94,8 +103,6 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
         }
 
           restaurantContactNumber = restaurantDto.getRestaurantContact();
-
-
 
         reserveButton = (Button) findViewById(R.id.reserveButton);
 
@@ -135,8 +142,33 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
         });
 
         presenter = new SingleRestaurantPresenter(this);
-        presenter.getAllCommentsForRestaurant(restaurantId);
         presenter.getRatingForRestaurant(restaurantId);
+        presenter.getAllCommentsForRestaurant(restaurantId);
+
+        viewCommentsButton = (Button) findViewById(R.id.viewCommentsButton);
+
+        viewCommentsButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                ArrayList<String> commentList = new ArrayList<>();
+
+                for (CommentDto c : comments) {
+                    String s = c.getUser() + ": \n" + c.getText();
+                    commentList.add(s);
+                }
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(SingleRestaurantActivity.this);
+                LayoutInflater inflater = getLayoutInflater();
+                View convertView = (View) inflater.inflate(R.layout.all_comments, null);
+                alertDialog.setView(convertView);
+                alertDialog.setTitle(R.string.viewComments);
+                ListView lv = (ListView) convertView.findViewById(R.id.commentsListView);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(SingleRestaurantActivity.this,android.R.layout.simple_list_item_1,commentList);
+                lv.setAdapter(adapter);
+                alertDialog.show();
+            }
+        });
 
         setupRestaurantData();
 
@@ -167,12 +199,14 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
     }
 
     private void addComment() {
-        if(commentText.getText().toString().length()!=0)
+        if (commentText.getText().toString().length() != 0) {
 
             presenter.addComment(
                     commentText.getText().toString(),
-                    ((UserDTO)ApplicationState.getInstance().getItem("UserDTO")).getName(),
+                    ((UserDTO) ApplicationState.getInstance().getItem("UserDTO")).getName(),
                     restaurantId);
+        Toast.makeText(getApplicationContext(), "Comment added successfully!", Toast.LENGTH_LONG).show();
+    }
         else
             Toast.makeText(getApplicationContext(), R.string.emptyComment, Toast.LENGTH_LONG).show();
     }
@@ -278,6 +312,35 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
                 SingleRestaurantActivity.this.startActivity(intent);
                 //MainActivity.this.finish();
                 break;
+            case R.id.nav_menu3:
+                CharSequence languages[] = new CharSequence[] {"Serbian", "English"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.selectLanguage);
+                builder.setItems(languages, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which == 0) {
+                            Locale locale = new Locale("sr");
+                            Configuration config = getBaseContext().getResources().getConfiguration();
+                            config.locale = locale;
+                            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                            Intent intent = new Intent(SingleRestaurantActivity.this, SingleRestaurantActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        } else {
+                            Locale locale = new Locale("en");
+                            Configuration config = getBaseContext().getResources().getConfiguration();
+                            config.locale = locale;
+                            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                            Intent intent = new Intent(SingleRestaurantActivity.this, SingleRestaurantActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+                    }
+                });
+                builder.show();
+                break;
             case R.id.nav_menu4:
                 intent = new Intent(SingleRestaurantActivity.this, ChangePasswordActivity.class);
                 SingleRestaurantActivity.this.startActivity(intent);
@@ -342,7 +405,7 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
         ratingTextView.setText(s);
 
         Button reserveButton = findViewById(R.id.reserveButton);
-        reserveButton.setText(R.string.reserve + reservationRequest.getSeats() + R.string.seats);
+        reserveButton.setText("Reserve " + reservationRequest.getSeats() + " seats.");
     }
 
 
@@ -361,14 +424,7 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
 
     @Override
     public void onPopulateComments(List<CommentDto> comments) {
-
         this.comments = comments;
-        commentsListView = findViewById(R.id.commentsListView);
-
-        adapter = new RowCommentAdapter(this, this.comments);
-
-        commentsListView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
     }
 
 
@@ -387,5 +443,10 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
         singleRestaurantRatingBar.setRating((float)restaurantRating.doubleValue());
         String s = (float)restaurantRating.doubleValue() +" / 5";
         ratingTextView.setText(s);
+    }
+
+    @Override
+    public void onCommentAdded(CommentDto body) {
+        this.comments.add(body);
     }
 }

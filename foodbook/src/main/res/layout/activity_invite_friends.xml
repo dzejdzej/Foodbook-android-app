@@ -38,7 +38,7 @@ android:fitsSystemWindows="true">
                 android:inputType="textEmailAddress"
                 android:ems="10"
                 android:id="@+id/friendsEmail"
-                android:hint="Friends email" />
+                android:hint="@string/friendsEmail" />
         </android.support.design.widget.TextInputLayout>
 
         <Button
@@ -59,7 +59,7 @@ android:fitsSystemWindows="true">
             android:background="@color/accent_material_dark"
             android:textColor="@color/colorWhite"/>
 
-
+<!--
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,7 +68,7 @@ android:fitsSystemWindows="true">
             android:onClick="goToOffline"
             android:layout_marginBottom="19dp"
             android:background="@color/accent_material_dark"
-            android:textColor="@color/colorWhite"/>
+            android:textColor="@color/colorWhite"/> -->
 
         <Button
             android:layout_width="match_parent"

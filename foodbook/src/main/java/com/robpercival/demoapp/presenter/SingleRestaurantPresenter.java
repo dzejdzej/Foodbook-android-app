@@ -39,6 +39,8 @@ public class SingleRestaurantPresenter {
         void onRestaurantRated(Double rating);
 
         void getRatingForRestaurant(Double rating);
+
+        void onCommentAdded(CommentDto body);
     }
 
     ReservationService reservationService = ReservationServiceImpl.getInstance();
@@ -75,7 +77,7 @@ public class SingleRestaurantPresenter {
 
     public void getAllCommentsForRestaurant(Long restaurantId) {
 
-/*        commentService.getAllCommentsForRestaurant(restaurantId, new ServiceCallback<List<CommentDto>>() {
+        commentService.getAllCommentsForRestaurant(restaurantId, new ServiceCallback<List<CommentDto>>() {
 
             @Override
             public void onSuccess(List<CommentDto> body) {
@@ -85,7 +87,7 @@ public class SingleRestaurantPresenter {
             @Override
             public void onError(List<CommentDto> body) {
             }
-        });*/
+        });
     }
 
 
@@ -100,6 +102,7 @@ public class SingleRestaurantPresenter {
             @Override
             public void onSuccess(CommentDto body) {
                 Log.d("tag","Succesfully added comment!");
+                view.onCommentAdded(body);
             }
 
             @Override
