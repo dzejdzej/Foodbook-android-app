@@ -11,7 +11,7 @@ public class ApplicationState {
 
     private static ApplicationState instance;
 
-    public static String SERVER_IP = "http://10.1.66.53:8080";
+    public static String SERVER_IP = "http://192.168.0.22:8080";
 
     private Map<String, Object> localStorage = new HashMap<String, Object>();
 
