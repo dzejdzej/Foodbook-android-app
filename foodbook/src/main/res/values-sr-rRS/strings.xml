@@ -56,4 +56,6 @@
     <string name="friendsEmail">Prijateljev email</string>
     <string name="selectLanguage">Izaberi jezik</string>
 
+    <string name="addComment">Dodaj komentar</string>
+    <string name="viewComments">Pogledaj komentare</string>
 </resources>
