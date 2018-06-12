@@ -10,15 +10,20 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.robpercival.demoapp.R;
+import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
+import com.robpercival.demoapp.state.ApplicationState;
+
+import java.util.List;
 
 public class RowRestaurantAdapter extends BaseAdapter {
 
     private Context mainActivity;
-    private String[] data;
+    private List<ReservationResponseDTO> data;
     private static LayoutInflater inflater = null;
 
-    public RowRestaurantAdapter(Context mainActivity, String[] data) {
+    public RowRestaurantAdapter(Context mainActivity, List<ReservationResponseDTO> data) {
         this.mainActivity = mainActivity;
         this.data = data;
         inflater = (LayoutInflater) mainActivity
@@ -31,12 +36,19 @@ public class RowRestaurantAdapter extends BaseAdapter {
         if (vi == null)
             vi = inflater.inflate(R.layout.row_restaurant, null);
 
+        ReservationResponseDTO dto = data.get(position);
+        //dto.setImageUrl("img/mcdonalds.png");
+        dto.setImageUrl(data.get(position).getImageUrl());
         ImageView imageView = vi.findViewById(R.id.restaurantImageView);
         Drawable myDrawable = mainActivity.getResources().getDrawable(R.drawable.restaurant);
-        imageView.setImageDrawable(myDrawable);
+        Glide.with(this.mainActivity)
+                .load(ApplicationState.SERVER_IP + "/" + dto.getImageUrl())
+                .into(imageView);
+        //imageView.setImageDrawable(myDrawable);
 
         TextView restaurantNameTextView = vi.findViewById(R.id.restaurantNameTextView);
-        restaurantNameTextView.setText("Restaurant Name Yeahh");
+        //restaurantNameTextView.setText("Restaurant Name Yeahh");
+        restaurantNameTextView.setText(data.get(position).getRestaurantName());
 
         RatingBar ratingBar = vi.findViewById(R.id.ratingBar);
         ratingBar.setRating(3.5f);
@@ -49,12 +61,12 @@ public class RowRestaurantAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return data.length;
+        return data.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return data[position];
+        return data.get(position);
     }
 
     @Override

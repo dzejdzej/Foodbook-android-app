@@ -1,100 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Use DrawerLayout as root container for activity -->
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout_single_restaurant"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGrayBackground"
-    >
+    android:fitsSystemWindows="true">
 
     <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:fillViewport="true">
-
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
         <RelativeLayout
-            android:id="@+id/form_layout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorGrayBackground" >
+            android:id="@+id/content_frame_single_restaurant"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorGrayBackground">
 
-            <ImageView
+            <LinearLayout
+                android:id="@+id/singleRestaurantLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/singleRestaurantImageView"
-                android:src="@drawable/single_restaurant"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:scaleType="fitXY"/>
+                android:layout_height="match_parent"
+                android:layout_below="@+id/my_toolbar_single_restaurant"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/singleRestaurantNameTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="50sp"
-                android:layout_gravity="center"
-                android:padding="10dp"
-                android:textStyle="italic"
-                android:layout_below="@+id/singleRestaurantImageView"/>
+
+                <ImageView
+                    android:id="@+id/singleRestaurantImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:id="@+id/singleRestaurantNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="50sp"
+                    android:textStyle="italic" />
+
+
             <TextView
                 android:id="@+id/singleRestaurantOpenTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:textColor="@color/colorTextGray"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:textStyle="normal"
-                android:layout_below="@+id/singleRestaurantNameTextView"/>
+                android:layout_gravity="center"
+                android:textStyle="normal"/>
+
             <TextView
                 android:id="@+id/singleRestaurantStreetTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
+                android:layout_gravity="center"
                 android:textColor="@color/colorTextGray"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:textStyle="normal"
-                android:layout_below="@+id/singleRestaurantOpenTextView"/>
+                android:textStyle="normal" />
 
-            <fragment
-                android:id="@+id/map"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                tools:context="com.robpercival.demoapp.activities.SingleRestaurantActivity"
-                android:layout_below="@+id/singleRestaurantStreetTextView"/>
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/map"
-                android:gravity="center_vertical">
-                <RatingBar
-                    android:id="@+id/singleRestaurantRatingBar"
-                    android:layout_width="wrap_content"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:paddingLeft="35dp"
+                android:paddingRight="35dp"
+                android:orientation="vertical">
+                <Button
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:numStars="5"
-                    android:stepSize="1.0"
-                    android:paddingLeft="10dp"
-                    style="?android:attr/ratingBarStyleIndicator"
-                    android:isIndicator="true"
-                    android:layout_alignParentLeft="true"
-                    />
+                    android:id="@+id/reserveButton"
+                    android:background="@color/accent_material_dark"
+                    android:textColor="@color/colorWhite" />
 
-                <TextView
-                    android:id="@+id/singleRestaurantRatingBarValue"
-                    android:layout_width="wrap_content"
+                <Button
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="35sp"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="10dp"
-                    android:textStyle="normal"
-                    android:layout_toRightOf="@+id/singleRestaurantRatingBar"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center"/>
-            </RelativeLayout>
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/callPhoneButton"
+                    android:text="@string/callRestaurant"
+                    android:background="@color/colorCall"
+                    android:textColor="@color/colorWhite" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/rank_button"
+                    android:text="@string/rateUs"
+                    android:background="@color/colorCall"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+
+                <fragment
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    tools:context="com.robpercival.demoapp.activities.SingleRestaurantActivity" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <RatingBar
+                        android:id="@+id/singleRestaurantRatingBar"
+                        style="?android:attr/ratingBarStyleIndicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        android:stepSize="1.0" />
+
+                    <TextView
+                        android:id="@+id/singleRestaurantRatingBarValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_toRightOf="@+id/singleRestaurantRatingBar"
+                        android:gravity="center"
+                        android:textSize="35sp"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/addComment"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:hint="@string/enterComment"
+                        android:inputType="textMultiLine"
+                        android:lines="3"
+                        android:maxLines="6"
+                        android:minLines="2"
+                        android:scrollbars="vertical" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/addComment"
+                        android:id="@+id/addCommentButton"
+                        android:layout_marginBottom="19dp"
+                        android:background="@color/accent_material_dark"
+                        android:textColor="@color/colorWhite"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ListView
+                        android:id="@+id/commentsListView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </ListView>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/my_toolbar_single_restaurant"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_alignParentLeft="true"
+
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@color/colorTheme"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
         </RelativeLayout>
+
     </ScrollView>
 
-</RelativeLayout>
+    <!-- <include layout="@layout/content_main" />-->
+
+    <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view_single_restaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/colorGrayBackground"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_view">
+
+    </android.support.design.widget.NavigationView>
+
+</android.support.v4.widget.DrawerLayout>

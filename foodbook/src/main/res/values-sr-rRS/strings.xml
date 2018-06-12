@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Foodbook</string>
+    <string name="login">Uloguj se</string>
+    <string name="logout">Izloguj se</string>
+    <string name="monospace">jednoprostor</string>
+    <string name="search">PRETRAGA</string>
+    <string name="register">REGISTRACIJA</string>
+    <string name="loginUpper">ULOGUJ SE</string>
+    <string name="invalidLocationOrCuisine">Neispravna kuhinja ili lokacija unesena!</string>
+    <string name="invalidCountryOrCity">Neispravna drzava ili grad uneseni!</string>
+    <string name="location">lokacija</string>
+    <string name="reserve">rezervacija</string>
+    <string name="title_activity_single_restauirant">Mapa</string>
+    <string name="labelDatePicker">Izaberi datum rezervacije:</string>
+    <string name="labelTimePicker">Izaberi vreme rezervacije:</string>
+    <string name="inviteReservation">Pozovi prijatelja</string>
+    <string name="finishReservation">Kraj</string>
+    <string name="cancelReservation">Odustani</string>
+    <string name="submitUpper">POTVRDI</string>
+    <string name="title_activity_change_password">ChangePasswordActivity</string>
+    <string name="confirmUpper">POTVRDI</string>
+    <string name="inviteUpper">POZOVI</string>
+    <string name="finishUpper">KRAJ</string>
+    <string name="cancelUpper">ODUSTANI</string>
+    <string name="home">Pocetna</string>
+    <string name="reservations">Rezervacije</string>
+    <string name="map">Mapa</string>
+    <string name="changePassword">Promena sifre</string>
+    <string name="searchSmall">Pretraga</string>
+    <string name="callRestaurant">POZOVI NAS</string>
+    <string name="username">Korisnicko ime</string>
+    <string name="password">Sifra</string>
+    <string name="pickDate">IZABERI DATUM</string>
+    <string name="pickTime">IZABERI VREME</string>
+    <string name="duration">Trajanje (sati)</string>
+    <string name="persons">Osobe</string>
+    <string name="city">Grad</string>
+    <string name="foodType">Tip kuhinje</string>
+    <string name="searchRestaurant">Pretrazi restorane</string>
+    <string name="information">Informacije</string>
+    <string name="myReservations">Moje rezervacije</string>
+    <string name="oldPassword">Stara sifra</string>
+    <string name="newPassword">Nova sifra</string>
+    <string name="repeatNewPassword">Ponivi novu sifru</string>
+    <string name="language">Jezik</string>
+    <string name="english">Engleski</string>
+    <string name="searbian">Srpski</string>
+    <string name="rateUs">Oceni nas</string>
+    <string name="emptyComment">Komentar ne moze biti prazan</string>
+    <string name="didntChoose">Niste izabrali rating.</string>
+    <string name="seats">sedista</string>
+    <string name="enterComment">Unesite komentar</string>
+    <string name="restaurantDetails">Detalji restorana</string>
+
+</resources>

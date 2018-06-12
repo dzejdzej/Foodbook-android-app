@@ -25,6 +25,6 @@ public class Menu4Fragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Information");
+        getActivity().setTitle(R.string.information);
     }
 }

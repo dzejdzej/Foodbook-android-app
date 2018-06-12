@@ -1,44 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-        <item android:title="Sub items">
-            <menu>
-                <group android:checkableBehavior="single">
-                    <item
-                        android:icon="@drawable/menu40x40"
-                        android:title="Sub item 1" />
-                    <item
-                        android:icon="@drawable/user40x40"
-                        android:title="Sub item 2" />
-                </group>
-            </menu>
-        </item>
-
         <item
             android:id="@+id/nav_menu1"
             android:icon="@drawable/ic_home"
-            android:title="Home" />
+            android:title="@string/home" />
         <item
             android:id="@+id/nav_menu2"
             android:icon="@drawable/ic_history"
-            android:title="Reservations" />
-        <item
-            android:id="@+id/nav_menu3"
-            android:icon="@drawable/menu40x40"
-            android:title="Map" />
+            android:title="@string/reservations" />
         <item
             android:id="@+id/nav_menu4"
             android:icon="@drawable/ic_information"
-            android:title="Information" />
+            android:title="@string/changePassword" />
         <item
             android:id="@+id/nav_menu5"
             android:icon="@drawable/ic_search"
-            android:title="Search" />
+            android:title="@string/searchSmall" />
     </group>
 </menu>
-
-
-
-
-
-

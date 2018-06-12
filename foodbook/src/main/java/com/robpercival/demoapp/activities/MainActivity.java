@@ -3,7 +3,6 @@ package com.robpercival.demoapp.activities;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -19,48 +18,112 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.gson.Gson;
 import com.robpercival.demoapp.R;
 import com.robpercival.demoapp.adapters.RowRestaurantAdapter;
-import com.robpercival.demoapp.fragments.Menu1Fragment;
-import com.robpercival.demoapp.fragments.Menu2Fragment;
-import com.robpercival.demoapp.fragments.Menu3Fragment;
-import com.robpercival.demoapp.fragments.Menu4Fragment;
-import com.robpercival.demoapp.fragments.Menu5Fragment;
+import com.robpercival.demoapp.presenter.MainPresenter;
+import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
+import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
+import com.robpercival.demoapp.rest.dto.user.UserDTO;
+import com.robpercival.demoapp.services.FirebaseIDService;
+import com.robpercival.demoapp.state.ApplicationState;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements  MainPresenter.MainView {
 
     private DrawerLayout drawerLayout;
     private ListView restaurantListView;
+
+    private MainPresenter mainPresenter;
+    private List<ReservationResponseDTO> availableRestaurants;
+    private ReservationRequestDTO reservationRequest;
+    private String availableRestaurantsJson;
+    private String reservationRequestJson;
+
+    public static <ReservationResponseDTO> List<ReservationResponseDTO> stringToArray(String jsonString, Class<ReservationResponseDTO[]> clazz) {
+        ReservationResponseDTO[] arr = new Gson().fromJson(jsonString, clazz);
+        return Arrays.asList(arr); //or return Arrays.asList(new Gson().fromJson(s, clazz)); for a one-liner
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setTitle(R.string.home);
+
+        availableRestaurantsJson = null;
+        reservationRequestJson = null;
+        Bundle extras = getIntent().getExtras();
+
         setupDrawerAndToolbar();
+
+        if(extras == null) {
+            Toast.makeText(getApplicationContext(), "No results available, please perform search before continuing !", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (extras.getString("availableRestaurants") != null) {
+            availableRestaurantsJson = extras.getString("availableRestaurants");
+            reservationRequestJson = extras.getString("reservationRequest");
+            availableRestaurants = stringToArray(availableRestaurantsJson, ReservationResponseDTO[].class);
+            reservationRequest = new Gson().fromJson(reservationRequestJson, ReservationRequestDTO.class);
+            ApplicationState.getInstance().setItem("availableRestaurants", availableRestaurants);
+            ApplicationState.getInstance().setItem("reservationRequest", reservationRequest);
+        }else {
+            availableRestaurants = (List) ApplicationState.getInstance().getItem("availableRestaurants");
+            reservationRequest = (ReservationRequestDTO) ApplicationState.getInstance().getItem("reservationRequest");
+        }
+
+        //Log.d("Velicina dtos: ", jsonMyObject);
+
+
+
+        if(availableRestaurants == null) {
+            return;
+        }
+
         populateListView();
 
-        displaySelectedScreen(R.id.nav_menu1);
-        System.out.println(getIntent().getExtras().get("location") + "");
-        System.out.println(getIntent().getExtras().get("cuisine") + "");
+
+
+       // System.out.println(getIntent().getExtras().get("location") + "");
+       // System.out.println(getIntent().getExtras().get("cuisine") + "");
+
+        mainPresenter = new MainPresenter(this);
+
+
+
     }
 
     private void populateListView() {
-        restaurantListView = findViewById(R.id.restaurantListView);
 
         restaurantListView = findViewById(R.id.restaurantListView);
-        restaurantListView.setAdapter(new RowRestaurantAdapter(this, new String[] { "data1",
-                "data2", "data3", "data4" }));
+
+        restaurantListView.setAdapter(new RowRestaurantAdapter(this, this.availableRestaurants));
 
         restaurantListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 GridLayout restaurantGridLayout = (GridLayout) view;
-
+                long restaurantId = availableRestaurants.get(i).getRestaurantId();
                 // iscupati koji je restoran u pitanju
                 Intent singleRestaurantIntent = new Intent(MainActivity.this, SingleRestaurantActivity.class);
+                singleRestaurantIntent.putExtra("reservationRequest", reservationRequestJson);
+                singleRestaurantIntent.putExtra("restaurantId", restaurantId);
+                singleRestaurantIntent.putExtra("restaurantDto", new Gson().toJson(availableRestaurants.get(i)));
                 MainActivity.this.startActivity(singleRestaurantIntent);
+
             }
         });
     }
@@ -104,6 +167,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.logout_menu, menu);
+
+        MenuItem logoutMenu = menu.getItem(0);
+
+        logoutMenu.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                MainActivity.this.startActivity(login);
+
+                UserDTO dto = (UserDTO) ApplicationState.getInstance().getItem("UserDTO");
+
+                FirebaseIDService.unsubscribe(dto.getUserId());
+                try {
+                    FirebaseInstanceId.getInstance().deleteInstanceId();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                ApplicationState.getInstance().clear();
+
+                return true;
+            }
+        });
+
         return true;
     }
 
@@ -120,21 +207,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void displaySelectedScreen(int id) {
         Fragment fragment = null;
 
+        Intent intent = null;
+
         switch (id) {
             case R.id.nav_menu1:
-                fragment = new Menu1Fragment();
-                break;
+                return;
             case R.id.nav_menu2:
-                fragment = new Menu2Fragment();
-                break;
-            case R.id.nav_menu3:
-                fragment = new Menu3Fragment();
+                intent = new Intent(MainActivity.this, MyReservationsActivity.class);
+                MainActivity.this.startActivity(intent);
+                //MainActivity.this.finish();
                 break;
             case R.id.nav_menu4:
-                fragment = new Menu4Fragment();
+                intent = new Intent(MainActivity.this, ChangePasswordActivity.class);
+                MainActivity.this.startActivity(intent);
                 break;
             case R.id.nav_menu5:
-                fragment = new Menu5Fragment();
+                intent = new Intent(MainActivity.this, SearchActivity.class);
+                MainActivity.this.startActivity(intent);
                 break;
         }
 
@@ -149,17 +238,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        menuItem.setChecked(true);
-        int id = menuItem.getItemId();
+    public void onLoginFail() {
 
-        // close drawer when item is tapped
-        drawerLayout.closeDrawers();
+    }
 
-        displaySelectedScreen(id);
-        // Add code here to update the UI based on the item selected
-        // For example, swap UI fragments here
+    @Override
+    public void onLoginSuccess() {
 
-        return true;
     }
 }
