@@ -1,7 +1,10 @@
 package com.robpercival.demoapp.activities;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,6 +51,7 @@ import com.robpercival.demoapp.state.ApplicationState;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 public class SingleRestaurantActivity extends AppCompatActivity implements OnMapReadyCallback, SingleRestaurantPresenter.SingleRestaurantView {
 
@@ -278,6 +282,35 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
                 SingleRestaurantActivity.this.startActivity(intent);
                 //MainActivity.this.finish();
                 break;
+            case R.id.nav_menu3:
+                CharSequence languages[] = new CharSequence[] {"Serbian", "English"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.selectLanguage);
+                builder.setItems(languages, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which == 0) {
+                            Locale locale = new Locale("sr");
+                            Configuration config = getBaseContext().getResources().getConfiguration();
+                            config.locale = locale;
+                            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                            Intent intent = new Intent(SingleRestaurantActivity.this, SingleRestaurantActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        } else {
+                            Locale locale = new Locale("en");
+                            Configuration config = getBaseContext().getResources().getConfiguration();
+                            config.locale = locale;
+                            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                            Intent intent = new Intent(SingleRestaurantActivity.this, SingleRestaurantActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+                    }
+                });
+                builder.show();
+                break;
             case R.id.nav_menu4:
                 intent = new Intent(SingleRestaurantActivity.this, ChangePasswordActivity.class);
                 SingleRestaurantActivity.this.startActivity(intent);
@@ -342,7 +375,7 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
         ratingTextView.setText(s);
 
         Button reserveButton = findViewById(R.id.reserveButton);
-        reserveButton.setText(R.string.reserve + reservationRequest.getSeats() + R.string.seats);
+        reserveButton.setText("Reserve " + reservationRequest.getSeats() + " seats.");
     }
 
 

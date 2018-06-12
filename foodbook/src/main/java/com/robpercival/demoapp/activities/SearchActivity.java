@@ -9,6 +9,7 @@ import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -54,6 +55,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class SearchActivity extends AppCompatActivity implements SearchPresenter.SearchView{
 
@@ -418,11 +420,27 @@ public class SearchActivity extends AppCompatActivity implements SearchPresenter
                 CharSequence languages[] = new CharSequence[] {"Serbian", "English"};
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Select language");
+                builder.setTitle(R.string.selectLanguage);
                 builder.setItems(languages, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // the user clicked on colors[which]
+                        if(which == 0) {
+                            Locale locale = new Locale("sr");
+                            Configuration config = getBaseContext().getResources().getConfiguration();
+                            config.locale = locale;
+                            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                            Intent intent = new Intent(SearchActivity.this, SearchActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        } else {
+                            Locale locale = new Locale("en");
+                            Configuration config = getBaseContext().getResources().getConfiguration();
+                            config.locale = locale;
+                            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                            Intent intent = new Intent(SearchActivity.this, SearchActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
                     }
                 });
                 builder.show();
