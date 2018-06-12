@@ -16,10 +16,6 @@ public class SplashActivity extends Activity {
 
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        Locale locale = new Locale("sr");
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
 
         setContentView(R.layout.activity_splash);
 
