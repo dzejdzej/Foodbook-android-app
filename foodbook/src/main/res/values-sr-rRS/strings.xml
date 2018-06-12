@@ -43,4 +43,14 @@
     <string name="oldPassword">Stara sifra</string>
     <string name="newPassword">Nova sifra</string>
     <string name="repeatNewPassword">Ponivi novu sifru</string>
+    <string name="language">Jezik</string>
+    <string name="english">Engleski</string>
+    <string name="searbian">Srpski</string>
+    <string name="rateUs">Oceni nas</string>
+    <string name="emptyComment">Komentar ne moze biti prazan</string>
+    <string name="didntChoose">Niste izabrali rating.</string>
+    <string name="seats">sedista</string>
+    <string name="enterComment">Unesite komentar</string>
+    <string name="restaurantDetails">Detalji restorana</string>
+
 </resources>

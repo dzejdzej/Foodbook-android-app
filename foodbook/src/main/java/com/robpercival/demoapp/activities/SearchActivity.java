@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -411,6 +412,19 @@ public class SearchActivity extends AppCompatActivity implements SearchPresenter
                 intent = new Intent(SearchActivity.this, MyReservationsActivity.class);
                 SearchActivity.this.startActivity(intent);
                 //MainActivity.this.finish();
+                break;
+            case R.id.nav_menu3:
+                CharSequence languages[] = new CharSequence[] {"Serbian", "English"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Select language");
+                builder.setItems(languages, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // the user clicked on colors[which]
+                    }
+                });
+                builder.show();
                 break;
             case R.id.nav_menu4:
                 intent = new Intent(SearchActivity.this, ChangePasswordActivity.class);
