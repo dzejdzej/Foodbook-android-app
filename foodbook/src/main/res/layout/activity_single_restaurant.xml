@@ -85,6 +85,15 @@
                     android:text="@string/callRestaurant"
                     android:background="@color/colorCall"
                     android:textColor="@color/colorWhite" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/rank_button"
+                    android:text="Rate us"
+                    android:background="@color/colorCall"
+                    android:textColor="@color/colorWhite" />
             </LinearLayout>
 
 
