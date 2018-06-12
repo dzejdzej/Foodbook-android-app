@@ -7,7 +7,9 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -53,6 +55,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class SearchActivity extends AppCompatActivity implements SearchPresenter.SearchView{
 
@@ -370,10 +373,11 @@ public class SearchActivity extends AppCompatActivity implements SearchPresenter
                 Intent login = new Intent(SearchActivity.this, LoginActivity.class);
                 SearchActivity.this.startActivity(login);
 
-                UserDTO dto = (UserDTO) ApplicationState.getInstance().getItem("UserDTO");
-
-                FirebaseIDService.unsubscribe(dto.getUserId());
                 try {
+                    UserDTO dto = (UserDTO) ApplicationState.getInstance().getItem("UserDTO");
+
+                    FirebaseIDService.unsubscribe(dto.getUserId());
+
                     FirebaseInstanceId.getInstance().deleteInstanceId();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -411,6 +415,35 @@ public class SearchActivity extends AppCompatActivity implements SearchPresenter
                 intent = new Intent(SearchActivity.this, MyReservationsActivity.class);
                 SearchActivity.this.startActivity(intent);
                 //MainActivity.this.finish();
+                break;
+            case R.id.nav_menu3:
+                CharSequence languages[] = new CharSequence[] {"Serbian", "English"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.selectLanguage);
+                builder.setItems(languages, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which == 0) {
+                            Locale locale = new Locale("sr");
+                            Configuration config = getBaseContext().getResources().getConfiguration();
+                            config.locale = locale;
+                            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                            Intent intent = new Intent(SearchActivity.this, SearchActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        } else {
+                            Locale locale = new Locale("en");
+                            Configuration config = getBaseContext().getResources().getConfiguration();
+                            config.locale = locale;
+                            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                            Intent intent = new Intent(SearchActivity.this, SearchActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+                    }
+                });
+                builder.show();
                 break;
             case R.id.nav_menu4:
                 intent = new Intent(SearchActivity.this, ChangePasswordActivity.class);

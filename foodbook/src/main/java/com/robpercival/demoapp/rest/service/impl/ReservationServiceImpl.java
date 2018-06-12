@@ -6,6 +6,7 @@ import com.robpercival.demoapp.rest.dto.ReservationDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
 import com.robpercival.demoapp.rest.dto.user.CreatedReservationDTO;
+import com.robpercival.demoapp.rest.dto.user.UserDTO;
 import com.robpercival.demoapp.rest.service.ReservationService;
 import com.robpercival.demoapp.rest.service.ServiceCallback;
 
@@ -130,6 +131,47 @@ public class ReservationServiceImpl extends BaseServiceImpl implements Reservati
 
             @Override
             public void onFailure(Call<List<ReservationDTO>> call, Throwable t) {
+            }
+        });
+
+    }
+
+    @Override
+    public void confirmAttendance(long reservationId, long userId, final ServiceCallback<UserDTO> serviceCallback) {
+
+        Call<UserDTO> apiCall = reservationAPI.confirmAttendance(userId, reservationId);
+        //tempPolje = presenterCallback;
+        apiCall.enqueue(new Callback<UserDTO>() {
+
+            @Override
+            public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
+                UserDTO body = response.body();
+                serviceCallback.onSuccess(body);
+            }
+
+            @Override
+            public void onFailure(Call<UserDTO> call, Throwable t) {
+            }
+        });
+
+
+    }
+
+    @Override
+    public void cancelAttendance(long reservationId, long userId, final ServiceCallback<UserDTO> serviceCallback) {
+
+        Call<UserDTO> apiCall = reservationAPI.cancelAttendance(userId, reservationId);
+        //tempPolje = presenterCallback;
+        apiCall.enqueue(new Callback<UserDTO>() {
+
+            @Override
+            public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
+                UserDTO body = response.body();
+                serviceCallback.onSuccess(body);
+            }
+
+            @Override
+            public void onFailure(Call<UserDTO> call, Throwable t) {
             }
         });
 

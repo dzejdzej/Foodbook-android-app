@@ -43,5 +43,18 @@
     <string name="newPassword">New password</string>
     <string name="repeatNewPassword">Repeat new password</string>
     <string name="addComment">Add comment</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="searbian">Serbian</string>
+    <string name="rateUs">Rate us</string>
+    <string name="emptyComment">You can not post an empty comment.</string>
+    <string name="didntChoose">You did not choose you rating.</string>
+    <string name="seats">seats</string>
+    <string name="enterComment">Enter comment</string>
+    <string name="restaurantDetails">Restaurant details</string>
+    <string name="inviteFriends">Invite friends</string>
+    <string name="friendsEmail">Friends email</string>
+    <string name="selectLanguage">Select language</string>
+
     <string name="viewComments">View comments</string>
 </resources>

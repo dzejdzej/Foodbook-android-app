@@ -90,9 +90,10 @@ public class LoginPresenter {
             @Override
             public void onSuccess(List<ReservationDTO> body) {
                 Log.v("cacheReservations","Caching reservations");
+                ContentResolver cr = view.getAndroidContentResolver();
                 for(ReservationDTO reservationDTO: body) {
                     Log.v("cacheReservations","reservationDTO Id=" + reservationDTO.getId());
-                    ContentResolver cr = view.getAndroidContentResolver();
+
                     MyReservation reservation = new MyReservation((int)reservationDTO.getId(),
                             reservationDTO.getBeginDate().toString(),
                             reservationDTO.getRestaurantName());
@@ -100,6 +101,7 @@ public class LoginPresenter {
                     ContentValues contentValues = MyReservationContract.toContentValues(reservation);
                     cr.insert(MyReservationContract.URI_TABLE,contentValues);
                 }
+
                          Log.v("cacheReservations","DONE");
             }
 
