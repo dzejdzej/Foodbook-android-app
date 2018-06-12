@@ -5,6 +5,7 @@ import com.robpercival.demoapp.rest.dto.ReservationDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
 import com.robpercival.demoapp.rest.dto.user.CreatedReservationDTO;
+import com.robpercival.demoapp.rest.dto.user.UserDTO;
 
 
 import java.util.List;
@@ -23,4 +24,8 @@ public interface ReservationService {
     void getAllReservationsForUser(long userId, final ServiceCallback<List<ReservationDTO>> presenterCallback);
 
     void cancelReservation(long userId, long reservationId, final ServiceCallback<List<ReservationDTO>> serviceCallback);
+
+    void confirmAttendance(long reservationId, long userId, final ServiceCallback<UserDTO> serviceCallback);
+
+    void cancelAttendance(long reservationId, long userId, final ServiceCallback<UserDTO> serviceCallback);
 }

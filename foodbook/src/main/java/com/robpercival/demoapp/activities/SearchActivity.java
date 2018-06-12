@@ -371,10 +371,11 @@ public class SearchActivity extends AppCompatActivity implements SearchPresenter
                 Intent login = new Intent(SearchActivity.this, LoginActivity.class);
                 SearchActivity.this.startActivity(login);
 
-                UserDTO dto = (UserDTO) ApplicationState.getInstance().getItem("UserDTO");
-
-                FirebaseIDService.unsubscribe(dto.getUserId());
                 try {
+                    UserDTO dto = (UserDTO) ApplicationState.getInstance().getItem("UserDTO");
+
+                    FirebaseIDService.unsubscribe(dto.getUserId());
+
                     FirebaseInstanceId.getInstance().deleteInstanceId();
                 } catch (IOException e) {
                     e.printStackTrace();

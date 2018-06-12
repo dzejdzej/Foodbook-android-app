@@ -5,6 +5,7 @@ import com.robpercival.demoapp.rest.dto.ReservationDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
 import com.robpercival.demoapp.rest.dto.user.CreatedReservationDTO;
+import com.robpercival.demoapp.rest.dto.user.UserDTO;
 
 import java.util.List;
 
@@ -34,4 +35,11 @@ public interface ReservationAPI {
 
     @GET("reservation/cancel-reservation/user/{userId}/reservation/{reservationId}")
     Call<List<ReservationDTO>> cancelReservation(@Path("userId") long userId, @Path("reservationId") long reservationId);
+
+    @GET("reservation/confirm-attendance/user/{userId}/reservation/{reservationId}")
+    Call<UserDTO> confirmAttendance(@Path("userId") long userId, @Path("reservationId") long reservationId);
+
+    @GET("reservation/cancel-attendance/user/{userId}/reservation/{reservationId}")
+    Call<UserDTO> cancelAttendance(@Path("userId") long userId, @Path("reservationId") long reservationId);
+
 }

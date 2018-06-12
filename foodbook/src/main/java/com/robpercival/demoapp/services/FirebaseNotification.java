@@ -64,7 +64,7 @@ public class FirebaseNotification extends FirebaseMessagingService {
 
 
         Intent notificationIntent = new Intent(getApplicationContext(), SearchActivity.class);
-        notificationIntent.putExtra("item_id", "1001"); // <-- HERE I PUT THE EXTRA VALUE
+        notificationIntent.putExtra("reservationId", reservationId); // <-- HERE I PUT THE EXTRA VALUE
         PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, 0);
 
 
