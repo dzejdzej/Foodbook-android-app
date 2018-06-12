@@ -51,5 +51,21 @@ public class CommentServiceImpl extends BaseServiceImpl implements CommentServic
         });
     }
 
+    @Override
+    public void addComment(CommentDto comm, final ServiceCallback<CommentDto> presenterCallback) {
 
+        Call<CommentDto> apiCall = commentsAPI.addComment(comm);
+        apiCall.enqueue(new Callback<CommentDto>() {
+
+            @Override
+            public void onResponse(Call<CommentDto> call, Response<CommentDto> response) {
+                CommentDto body = response.body();
+                presenterCallback.onSuccess(body);
+            }
+
+            @Override
+            public void onFailure(Call<CommentDto> call, Throwable t) {
+            }
+        });
+    }
 }

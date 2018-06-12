@@ -1,7 +1,6 @@
 package com.robpercival.demoapp.activities;
 
 import android.content.Intent;
-import android.content.SyncStatusObserver;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -13,7 +12,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,11 +24,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.robpercival.demoapp.R;
 import com.robpercival.demoapp.adapters.RowRestaurantAdapter;
-import com.robpercival.demoapp.fragments.Menu1Fragment;
-import com.robpercival.demoapp.fragments.Menu2Fragment;
-import com.robpercival.demoapp.fragments.Menu3Fragment;
-import com.robpercival.demoapp.fragments.Menu4Fragment;
-import com.robpercival.demoapp.fragments.Menu5Fragment;
 import com.robpercival.demoapp.presenter.MainPresenter;
 import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
@@ -38,9 +31,11 @@ import com.robpercival.demoapp.rest.dto.user.UserDTO;
 import com.robpercival.demoapp.services.FirebaseIDService;
 import com.robpercival.demoapp.state.ApplicationState;
 
+
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -63,10 +58,9 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
-        setTitle("Home");
+        setTitle(R.string.home);
 
         availableRestaurantsJson = null;
         reservationRequestJson = null;

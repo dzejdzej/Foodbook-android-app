@@ -43,7 +43,7 @@
             android:layout_width = "match_parent"
             android:layout_height = "wrap_content"
             android:id = "@+id/editTxtUsername"
-            android:hint = "Username"
+            android:hint = "@string/username"
             android:focusable = "true" />
     </android.support.design.widget.TextInputLayout>
 
@@ -63,7 +63,7 @@
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/editTxtPassword"
-            android:hint="Password" />
+            android:hint="@string/password" />
     </android.support.design.widget.TextInputLayout>
 
 

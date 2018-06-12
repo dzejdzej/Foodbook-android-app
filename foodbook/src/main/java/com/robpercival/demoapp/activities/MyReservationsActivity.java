@@ -54,7 +54,7 @@ public class MyReservationsActivity extends AppCompatActivity implements MyReser
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_reservations);
-        setTitle("My reservations");
+        setTitle(R.string.myReservations);
         setupDrawerAndToolbar();
 
         presenter = new MyReservationsPresenter(this);

@@ -1,5 +1,6 @@
 package com.robpercival.demoapp.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -13,14 +14,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -39,6 +43,7 @@ import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
 import com.robpercival.demoapp.rest.dto.user.UserDTO;
 import com.robpercival.demoapp.services.FirebaseIDService;
+
 import com.robpercival.demoapp.state.ApplicationState;
 
 import java.io.IOException;
@@ -52,13 +57,19 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
     private ReservationRequestDTO reservationRequest;
     private long restaurantId;
     private SingleRestaurantPresenter presenter;
-    private Button reserveButton, callPhoneButton;
+    private Button reserveButton, callPhoneButton, addCommentButton;
     private String restaurantDtoJson;
     private ReservationResponseDTO restaurantDto;
     private List<CommentDto> comments;
     private ListView commentsListView;
     private RowCommentAdapter adapter;
     private String restaurantContactNumber;
+    private EditText commentText;
+    private Dialog rankDialog;
+    private RatingBar ratingBar, singleRestaurantRatingBar;
+    private Double restaurantRating = 0d;
+    private TextView ratingTextView;
+
 
 
     @Override
@@ -95,12 +106,22 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
             }
         });
 
+        commentText = (EditText) findViewById(R.id.addComment);
+
+        addCommentButton = (Button) findViewById(R.id.addCommentButton);
+
+        addCommentButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                addComment();
+            }
+        });
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         setupDrawerAndToolbar();
-        setupRestaurantData();
 
         callPhoneButton = (Button) findViewById(R.id.callPhoneButton);
         callPhoneButton.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +136,54 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
 
         presenter = new SingleRestaurantPresenter(this);
         presenter.getAllCommentsForRestaurant(restaurantId);
+        presenter.getRatingForRestaurant(restaurantId);
+
+        setupRestaurantData();
+
+        Button rankBtn = (Button) findViewById(R.id.rank_button);
+        rankBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                rankDialog = new Dialog(SingleRestaurantActivity.this, R.style.FullHeightDialog);
+                rankDialog.setContentView(R.layout.rank_dialog);
+                rankDialog.setCancelable(true);
+                ratingBar = (RatingBar)rankDialog.findViewById(R.id.dialog_ratingbar);
+                ratingBar.setRating(0);
+
+                TextView text = (TextView) rankDialog.findViewById(R.id.rank_dialog_text1);
+                text.setText("Rate us");
+
+                Button updateButton = (Button) rankDialog.findViewById(R.id.rank_dialog_button);
+                updateButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rateRestaurant(ratingBar.getRating());
+                        rankDialog.dismiss();
+                    }
+                });
+                //now that the dialog is set up, it's time to show it
+                rankDialog.show();
+            }
+        });
+    }
+
+    private void addComment() {
+        if(commentText.getText().toString().length()!=0)
+
+            presenter.addComment(
+                    commentText.getText().toString(),
+                    ((UserDTO)ApplicationState.getInstance().getItem("UserDTO")).getName(),
+                    restaurantId);
+        else
+            Toast.makeText(getApplicationContext(), "You can't post an empty comment.", Toast.LENGTH_LONG).show();
+    }
+
+    private void rateRestaurant(float rating) {
+        if (ratingBar.getRating() != 0) {
+            presenter.rateRestaurant(Double.valueOf(rating), ((UserDTO)ApplicationState.getInstance().getItem("UserDTO")).getName(), restaurantId);
+        } else {
+            Toast.makeText(getApplicationContext(), "You didn't choose you rating.", Toast.LENGTH_LONG).show();
+        }
+
     }
 
 
@@ -231,7 +300,6 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
 
     public void makeAReservation() {
         presenter.onReservationClick(reservationRequest, restaurantId);
-
     }
 
     @Override
@@ -239,9 +307,10 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng latLng = new LatLng(this.restaurantDto.getX(), this.restaurantDto.getY());
+        mMap.addMarker(new MarkerOptions().position(latLng).title(this.restaurantDto.getRestaurantName()));
+        /*mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));*/
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,16));
     }
 
     private void setupRestaurantData() {
@@ -259,18 +328,18 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
 
 
 
-
         TextView openTextView = findViewById(R.id.singleRestaurantOpenTextView);
         openTextView.setText("Open: 8AM - 10PM (OPEN NOW)");
 
         TextView streetTextView = findViewById(R.id.singleRestaurantStreetTextView);
         streetTextView.setText("Street: Oxford rd. 23");
 
-        RatingBar ratingBar = findViewById(R.id.singleRestaurantRatingBar);
-        ratingBar.setRating(4.0f);
+        singleRestaurantRatingBar = findViewById(R.id.singleRestaurantRatingBar);
+        singleRestaurantRatingBar.setRating((float)restaurantRating.doubleValue());
 
-        TextView ratingTextView = findViewById(R.id.singleRestaurantRatingBarValue);
-        ratingTextView.setText("4.5 / 5");
+        ratingTextView = findViewById(R.id.singleRestaurantRatingBarValue);
+        String s = (float)restaurantRating.doubleValue() +" / 5";
+        ratingTextView.setText(s);
 
         Button reserveButton = findViewById(R.id.reserveButton);
         reserveButton.setText("Reserve " + reservationRequest.getSeats() + " seats.");
@@ -300,5 +369,23 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
 
         commentsListView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+
+    @Override
+    public void onRestaurantRated(Double rating) {
+        Log.d("tag", "RATING " + rating);
+        restaurantRating = rating;
+        singleRestaurantRatingBar.setRating((float)restaurantRating.doubleValue());
+        String s = (float)restaurantRating.doubleValue() +" / 5";
+        ratingTextView.setText(s);
+    }
+
+    @Override
+    public void getRatingForRestaurant(Double rating) {
+        restaurantRating = rating;
+        singleRestaurantRatingBar.setRating((float)restaurantRating.doubleValue());
+        String s = (float)restaurantRating.doubleValue() +" / 5";
+        ratingTextView.setText(s);
     }
 }

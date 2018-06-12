@@ -48,7 +48,7 @@ android:fitsSystemWindows="true">
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pick date"
+                android:text="@string/pickDate"
                 android:padding="16dp"
                 android:id="@+id/datePickerButton"
                 android:background="@color/accent_material_dark"
@@ -75,7 +75,7 @@ android:fitsSystemWindows="true">
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pick time"
+                android:text="@string/pickTime"
                 android:padding="16dp"
                 android:id="@+id/timePickerButton"
                 android:background="@color/accent_material_dark"
@@ -110,7 +110,7 @@ android:fitsSystemWindows="true">
                     android:id="@+id/durationEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Duration (hours)"
+                    android:hint="@string/duration"
                     android:inputType="number"
                     android:textColorHint="#000000" />
             </android.support.design.widget.TextInputLayout>
@@ -123,7 +123,7 @@ android:fitsSystemWindows="true">
                     android:id="@+id/numberOfSeatsEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Persons"
+                    android:hint="@string/persons"
                     android:inputType="number"
                     android:textColorHint="#000000" />
             </android.support.design.widget.TextInputLayout>
@@ -137,7 +137,7 @@ android:fitsSystemWindows="true">
                     android:layout_height="wrap_content"
                     android:id="@+id/locationAutocompleteText"
                     android:ems="10"
-                    android:hint="City"
+                    android:hint="@string/city"
                     android:inputType="text"/>
             </android.support.design.widget.TextInputLayout>
 
@@ -151,7 +151,7 @@ android:fitsSystemWindows="true">
                     android:layout_height="wrap_content"
                     android:id="@+id/cuisineAutocompleteText"
                     android:ems="10"
-                    android:hint="Food type"
+                    android:hint="@string/foodType"
                     android:inputType="text"/>
             </android.support.design.widget.TextInputLayout>
 

@@ -25,6 +25,6 @@ public class Menu5Fragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Search");
+        getActivity().setTitle(R.string.search);
     }
 }

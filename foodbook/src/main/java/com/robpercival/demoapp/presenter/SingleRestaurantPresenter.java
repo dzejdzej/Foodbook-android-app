@@ -1,13 +1,18 @@
 package com.robpercival.demoapp.presenter;
 
+import android.util.Log;
+
 import com.robpercival.demoapp.rest.dto.CommentDto;
+import com.robpercival.demoapp.rest.dto.RatingDTO;
 import com.robpercival.demoapp.rest.dto.user.CreatedReservationDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
 import com.robpercival.demoapp.rest.dto.user.UserDTO;
 import com.robpercival.demoapp.rest.service.CommentService;
+import com.robpercival.demoapp.rest.service.RatingService;
 import com.robpercival.demoapp.rest.service.ReservationService;
 import com.robpercival.demoapp.rest.service.ServiceCallback;
 import com.robpercival.demoapp.rest.service.impl.CommentServiceImpl;
+import com.robpercival.demoapp.rest.service.impl.RatingServiceImpl;
 import com.robpercival.demoapp.rest.service.impl.ReservationServiceImpl;
 import com.robpercival.demoapp.state.ApplicationState;
 
@@ -21,6 +26,7 @@ public class SingleRestaurantPresenter {
 
     private final SingleRestaurantPresenter.SingleRestaurantView view;
     private CommentService commentService = CommentServiceImpl.getInstance();
+    private RatingService ratingService = RatingServiceImpl.getInstance();
 
     public interface SingleRestaurantView {
 
@@ -29,6 +35,10 @@ public class SingleRestaurantPresenter {
         void onReservationSuccess(long reservationId);
 
         void onPopulateComments(List<CommentDto> comments);
+
+        void onRestaurantRated(Double rating);
+
+        void getRatingForRestaurant(Double rating);
     }
 
     ReservationService reservationService = ReservationServiceImpl.getInstance();
@@ -77,5 +87,73 @@ public class SingleRestaurantPresenter {
             }
         });*/
     }
+
+
+    public void addComment(String commentText, String username, long restaurantId) {
+
+        CommentDto comm = new CommentDto();
+        comm.setUser(username);
+        comm.setText(commentText);
+        comm.setRestaurantId(restaurantId);
+
+        commentService.addComment(comm, new ServiceCallback<CommentDto>() {
+            @Override
+            public void onSuccess(CommentDto body) {
+                Log.d("tag","Succesfully added comment!");
+            }
+
+            @Override
+            public void onError(CommentDto body) {
+
+            }
+        });
+
+        commentService.getAllCommentsForRestaurant(restaurantId, new ServiceCallback<List<CommentDto>>() {
+
+            @Override
+            public void onSuccess(List<CommentDto> body) {
+                view.onPopulateComments(body);
+            }
+
+            @Override
+            public void onError(List<CommentDto> body) {
+            }
+        });
+    }
+
+    public void rateRestaurant(Double rating, String username, long restaurantId) {
+
+        final RatingDTO ratingDTO = new RatingDTO();
+        ratingDTO.setRating(rating);
+        ratingDTO.setRestaurantId(restaurantId);
+        ratingDTO.setUser(username);
+
+        ratingService.rateRestaurant(ratingDTO, new ServiceCallback<Double>() {
+            @Override
+            public void onSuccess(Double body) {
+                view.onRestaurantRated(body);
+            }
+
+            @Override
+            public void onError(Double body) {
+
+            }
+        });
+    }
+
+    public void getRatingForRestaurant(long restaurantId) {
+        ratingService.getRatingForRestaurant(restaurantId, new ServiceCallback<Double>() {
+            @Override
+            public void onSuccess(Double body) {
+                view.getRatingForRestaurant(body);
+            }
+
+            @Override
+            public void onError(Double body) {
+
+            }
+        });
+    }
+
 }
 

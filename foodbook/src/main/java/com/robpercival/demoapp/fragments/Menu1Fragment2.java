@@ -28,7 +28,7 @@ public class Menu1Fragment2 extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Home");
+        getActivity().setTitle(R.string.home);
 
         ListView restaurantListView = getView().findViewById(R.id.restaurantListView);
 
