@@ -1,5 +1,6 @@
 package com.robpercival.demoapp.activities;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.robpercival.demoapp.R;
 
 import android.content.Intent;
@@ -33,7 +34,11 @@ import com.robpercival.demoapp.fragments.Menu5Fragment;
 import com.robpercival.demoapp.presenter.MyReservationsPresenter;
 import com.robpercival.demoapp.rest.dto.ReservationDTO;
 import com.robpercival.demoapp.rest.dto.user.ChangePasswordDTO;
+import com.robpercival.demoapp.rest.dto.user.UserDTO;
+import com.robpercival.demoapp.services.FirebaseIDService;
+import com.robpercival.demoapp.state.ApplicationState;
 
+import java.io.IOException;
 import java.util.List;
 
 public class MyReservationsActivity extends AppCompatActivity implements MyReservationsPresenter.MyReservationsView {
@@ -97,6 +102,31 @@ public class MyReservationsActivity extends AppCompatActivity implements MyReser
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.logout_menu, menu);
+
+
+        MenuItem logoutMenu = menu.getItem(0);
+
+        logoutMenu.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                Intent login = new Intent(MyReservationsActivity.this, LoginActivity.class);
+                MyReservationsActivity.this.startActivity(login);
+
+                UserDTO dto = (UserDTO) ApplicationState.getInstance().getItem("UserDTO");
+
+                FirebaseIDService.unsubscribe(dto.getUserId());
+                try {
+                    FirebaseInstanceId.getInstance().deleteInstanceId();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                ApplicationState.getInstance().clear();
+
+                return true;
+            }
+        });
+
         return true;
     }
 
@@ -122,9 +152,6 @@ public class MyReservationsActivity extends AppCompatActivity implements MyReser
                 break;
             case R.id.nav_menu2:
                 return;
-            case R.id.nav_menu3:
-                //dodati rad sa mapom
-                break;
             case R.id.nav_menu4:
                 intent = new Intent(MyReservationsActivity.this, ChangePasswordActivity.class);
                 MyReservationsActivity.this.startActivity(intent);

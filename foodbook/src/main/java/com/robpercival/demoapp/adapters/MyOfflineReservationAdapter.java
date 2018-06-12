@@ -9,23 +9,24 @@ import android.widget.TextView;
 
 import com.robpercival.demoapp.R;
 import com.robpercival.demoapp.rest.dto.CommentDto;
+import com.robpercival.demoapp.sqlite.MyReservation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RowCommentAdapter extends BaseAdapter {
+public class MyOfflineReservationAdapter extends BaseAdapter {
 
-    private Context singleRestaurantActivity;
-    private List<CommentDto> data;
+    private Context offlineMyReservations;
+    private List<MyReservation> data;
     private static LayoutInflater inflater = null;
 
-    public RowCommentAdapter(Context singleRestaurantActivity, List<CommentDto> data) {
-        this.singleRestaurantActivity = singleRestaurantActivity;
+    public MyOfflineReservationAdapter(Context offlineMyReservations, List<MyReservation> data) {
+        this.offlineMyReservations = offlineMyReservations;
         if(data == null) {
             data = new ArrayList<>();
         }
         this.data = data;
-        inflater = (LayoutInflater) singleRestaurantActivity
+        inflater = (LayoutInflater) offlineMyReservations
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -33,18 +34,16 @@ public class RowCommentAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         if (vi == null)
-            vi = inflater.inflate(R.layout.row_comment, null);
+            vi = inflater.inflate(R.layout.row_offline_reservation, null);
 
-        final CommentDto dto = data.get(position);
+        final MyReservation myReservation = data.get(position);
 
-        TextView commentOwnerName = vi.findViewById(R.id.commentOwnerName);
-        commentOwnerName.setText(dto.getUser());
+        TextView commentOwnerName = vi.findViewById(R.id.beginDateTextView);
+        commentOwnerName.setText(myReservation.getReservationDate());
 
-        TextView commentText = vi.findViewById(R.id.commentText);
-        commentText.setText(dto.getText());
+        TextView commentText = vi.findViewById(R.id.restaurantName);
+        commentText.setText(myReservation.getRestaurantName());
 
-        //TextView commentDate = vi.findViewById(R.id.commentDate);
-        //commentDate.setText(dto.getDate().toString());
 
         return vi;
     }
@@ -63,5 +62,4 @@ public class RowCommentAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
-
 }

@@ -127,9 +127,6 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
             case R.id.nav_menu2:
                 fragment = new Menu2Fragment();
                 break;
-            case R.id.nav_menu3:
-                fragment = new Menu3Fragment();
-                break;
             case R.id.nav_menu4:
                 fragment = new Menu4Fragment();
                 break;

@@ -59,6 +59,17 @@ android:fitsSystemWindows="true">
             android:background="@color/accent_material_dark"
             android:textColor="@color/colorWhite"/>
 
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TEST TEST GO TO OFFLINE"
+            android:id="@+id/offline"
+            android:onClick="goToOffline"
+            android:layout_marginBottom="19dp"
+            android:background="@color/accent_material_dark"
+            android:textColor="@color/colorWhite"/>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

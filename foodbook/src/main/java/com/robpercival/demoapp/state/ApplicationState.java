@@ -34,4 +34,7 @@ public class ApplicationState {
         return instance;
     }
 
+    public void clear() {
+        this.localStorage.clear();
+    }
 }

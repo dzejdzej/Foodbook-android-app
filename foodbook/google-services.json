@@ -1,66 +1,35 @@
 {
   "project_info": {
-    "project_number": "369760561590",
-    "firebase_url": "https://foodbook-676cb.firebaseio.com",
-    "project_id": "foodbook-676cb",
-    "storage_bucket": "foodbook-676cb.appspot.com"
+    "project_number": "153533336075",
+    "firebase_url": "https://foodbook-dd487.firebaseio.com",
+    "project_id": "foodbook-dd487",
+    "storage_bucket": "foodbook-dd487.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:369760561590:android:45dc5f4d430c5b0f",
+        "mobilesdk_app_id": "1:153533336075:android:45dc5f4d430c5b0f",
         "android_client_info": {
           "package_name": "com.robpercival.demoapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "369760561590-5qi1pspks1rllpuo0d252127tpv0rnms.apps.googleusercontent.com",
+          "client_id": "153533336075-tmdo8gelgrgdfo7l0k69e05igo4cr8ks.apps.googleusercontent.com",
           "client_type": 3
         },
         {
-          "client_id": "369760561590-5qi1pspks1rllpuo0d252127tpv0rnms.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBdrEcuOyCySAT2g9Mo5ewXEQQaIMc3HJw"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:369760561590:android:f3cf9df466f989c0",
-        "android_client_info": {
-          "package_name": "foodbook.android"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "369760561590-5qi1pspks1rllpuo0d252127tpv0rnms.apps.googleusercontent.com",
+          "client_id": "153533336075-g6l55mg4i4lttbh37q6os4qima583k49.apps.googleusercontent.com",
           "client_type": 3
         },
         {
-          "client_id": "369760561590-5qi1pspks1rllpuo0d252127tpv0rnms.apps.googleusercontent.com",
+          "client_id": "153533336075-g6l55mg4i4lttbh37q6os4qima583k49.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBdrEcuOyCySAT2g9Mo5ewXEQQaIMc3HJw"
+          "current_key": "AIzaSyAcZMTvp5pd2q375J-7WsLgZoFFunNq6_4"
         }
       ],
       "services": {

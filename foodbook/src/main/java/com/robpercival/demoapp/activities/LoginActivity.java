@@ -1,6 +1,8 @@
 package com.robpercival.demoapp.activities;
 
 import android.app.Activity;
+import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,10 +21,15 @@ public class LoginActivity extends Activity implements LoginPresenter.LoginView 
     private EditText editTxtUsername;
     private EditText editTxtPassword;
 
+    private ContentResolver mContentResolver;
+
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.activity_login);
+
+
+        mContentResolver = LoginActivity.this.getContentResolver();
 
         Button loginButton = (Button) findViewById(R.id.loginButton);
 
@@ -58,7 +65,6 @@ public class LoginActivity extends Activity implements LoginPresenter.LoginView 
     private void gotoRegisterActivity() {
         Intent loginIntent = new Intent(LoginActivity.this, RegistrationActivity.class);
         LoginActivity.this.startActivity(loginIntent);
-        //LoginActivity.this.finish();
     }
 
     @Override
@@ -70,6 +76,10 @@ public class LoginActivity extends Activity implements LoginPresenter.LoginView 
     public void onLoginSuccess() {
         Intent searchActivity = new Intent(LoginActivity.this, SearchActivity.class);
         LoginActivity.this.startActivity(searchActivity);
-        //LoginActivity.this.finish();
+    }
+
+    @Override
+    public ContentResolver getAndroidContentResolver() {
+        return mContentResolver;
     }
 }

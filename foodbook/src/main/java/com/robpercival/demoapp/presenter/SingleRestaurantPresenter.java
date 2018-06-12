@@ -65,7 +65,7 @@ public class SingleRestaurantPresenter {
 
     public void getAllCommentsForRestaurant(Long restaurantId) {
 
-        commentService.getAllCommentsForRestaurant(restaurantId, new ServiceCallback<List<CommentDto>>() {
+/*        commentService.getAllCommentsForRestaurant(restaurantId, new ServiceCallback<List<CommentDto>>() {
 
             @Override
             public void onSuccess(List<CommentDto> body) {
@@ -75,7 +75,7 @@ public class SingleRestaurantPresenter {
             @Override
             public void onError(List<CommentDto> body) {
             }
-        });
+        });*/
     }
 }
 

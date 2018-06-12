@@ -20,7 +20,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.robpercival.demoapp.R;
 import com.robpercival.demoapp.adapters.RowRestaurantAdapter;
@@ -32,8 +34,11 @@ import com.robpercival.demoapp.fragments.Menu5Fragment;
 import com.robpercival.demoapp.presenter.MainPresenter;
 import com.robpercival.demoapp.rest.dto.user.ReservationRequestDTO;
 import com.robpercival.demoapp.rest.dto.user.ReservationResponseDTO;
+import com.robpercival.demoapp.rest.dto.user.UserDTO;
+import com.robpercival.demoapp.services.FirebaseIDService;
 import com.robpercival.demoapp.state.ApplicationState;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,7 +71,15 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
         availableRestaurantsJson = null;
         reservationRequestJson = null;
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
+
+        setupDrawerAndToolbar();
+
+        if(extras == null) {
+            Toast.makeText(getApplicationContext(), "No results available, please perform search before continuing !", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (extras.getString("availableRestaurants") != null) {
             availableRestaurantsJson = extras.getString("availableRestaurants");
             reservationRequestJson = extras.getString("reservationRequest");
             availableRestaurants = stringToArray(availableRestaurantsJson, ReservationResponseDTO[].class);
@@ -78,10 +91,14 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
             reservationRequest = (ReservationRequestDTO) ApplicationState.getInstance().getItem("reservationRequest");
         }
 
-
         //Log.d("Velicina dtos: ", jsonMyObject);
 
-        setupDrawerAndToolbar();
+
+
+        if(availableRestaurants == null) {
+            return;
+        }
+
         populateListView();
 
 
@@ -98,17 +115,6 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
     private void populateListView() {
 
         restaurantListView = findViewById(R.id.restaurantListView);
-        // izvuci iz bundle listu
-        //
-        /*List<String> stockList = new ArrayList<String>();
-        stockList.add("stock1");
-        stockList.add("stock2");
-
-        String[] stockArr = new String[stockList.size()];
-        stockArr = stockList.toArray(stockArr);*/
-        //ReservationResponseDTO[] dtoArray = new ReservationResponseDTO[this.dtos.size()];
-        //ReservationResponseDTO[] dtoArray =  (ReservationResponseDTO[]) this.dtos.toArray( new ReservationResponseDTO[this.dtos.size()]);
-
 
         restaurantListView.setAdapter(new RowRestaurantAdapter(this, this.availableRestaurants));
 
@@ -167,6 +173,30 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.logout_menu, menu);
+
+        MenuItem logoutMenu = menu.getItem(0);
+
+        logoutMenu.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                MainActivity.this.startActivity(login);
+
+                UserDTO dto = (UserDTO) ApplicationState.getInstance().getItem("UserDTO");
+
+                FirebaseIDService.unsubscribe(dto.getUserId());
+                try {
+                    FirebaseInstanceId.getInstance().deleteInstanceId();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                ApplicationState.getInstance().clear();
+
+                return true;
+            }
+        });
+
         return true;
     }
 
@@ -192,9 +222,6 @@ public class MainActivity extends AppCompatActivity implements  MainPresenter.Ma
                 intent = new Intent(MainActivity.this, MyReservationsActivity.class);
                 MainActivity.this.startActivity(intent);
                 //MainActivity.this.finish();
-                break;
-            case R.id.nav_menu3:
-               //rad sa mapom implementirati - da se otvori mapa sa svim restoranima u tom gradu
                 break;
             case R.id.nav_menu4:
                 intent = new Intent(MainActivity.this, ChangePasswordActivity.class);

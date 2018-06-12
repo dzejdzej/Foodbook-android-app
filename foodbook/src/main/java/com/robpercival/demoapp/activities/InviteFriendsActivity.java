@@ -23,10 +23,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.robpercival.demoapp.R;
 import com.robpercival.demoapp.presenter.InviteFriendsPresenter;
+import com.robpercival.demoapp.rest.dto.user.UserDTO;
+import com.robpercival.demoapp.services.FirebaseIDService;
 import com.robpercival.demoapp.state.ApplicationState;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -138,7 +142,10 @@ public class InviteFriendsActivity extends AppCompatActivity implements InviteFr
         });
     }
 
-
+    public void goToOffline(View v) {
+        Intent i = new Intent(InviteFriendsActivity.this, OfflineMyReservations.class);
+        startActivity(i);
+    }
 
     private void setupDrawerAndToolbar() {
         Toolbar toolbar = findViewById(R.id.my_toolbar_invite_friends);
@@ -179,6 +186,30 @@ public class InviteFriendsActivity extends AppCompatActivity implements InviteFr
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.logout_menu, menu);
+
+        MenuItem logoutMenu = menu.getItem(0);
+
+        logoutMenu.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                Intent login = new Intent(InviteFriendsActivity.this, LoginActivity.class);
+                InviteFriendsActivity.this.startActivity(login);
+
+                UserDTO dto = (UserDTO) ApplicationState.getInstance().getItem("UserDTO");
+
+                FirebaseIDService.unsubscribe(dto.getUserId());
+                try {
+                    FirebaseInstanceId.getInstance().deleteInstanceId();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                ApplicationState.getInstance().clear();
+
+                return true;
+            }
+        });
+
         return true;
     }
 
@@ -206,9 +237,6 @@ public class InviteFriendsActivity extends AppCompatActivity implements InviteFr
                 intent = new Intent(InviteFriendsActivity.this, MyReservationsActivity.class);
                 InviteFriendsActivity.this.startActivity(intent);
                 //MainActivity.this.finish();
-                break;
-            case R.id.nav_menu3:
-                //rad sa mapom implementirati - da se otvori mapa sa svim restoranima u tom gradu
                 break;
             case R.id.nav_menu4:
                 intent = new Intent(InviteFriendsActivity.this, ChangePasswordActivity.class);

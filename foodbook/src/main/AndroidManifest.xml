@@ -27,6 +27,7 @@
         <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -78,12 +79,20 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
-
         <service android:name=".services.FirebaseIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <provider
+            android:name=".sqlite.MyReservationProvider"
+            android:authorities="com.robpercival.demoapp.sqlite.provider"
+            android:exported="true"
+            android:readPermission="com.robpercival.demoapp.sqlite.provider.READWRITE"
+            android:writePermission="com.robpercival.demoapp.sqlite.provider.READWRITE" />
+
+        <activity android:name=".activities.OfflineMyReservations"></activity>
     </application>
 
 </manifest>

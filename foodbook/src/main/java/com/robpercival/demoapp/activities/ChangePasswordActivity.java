@@ -22,8 +22,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.robpercival.demoapp.R;
 import com.robpercival.demoapp.presenter.ChangePasswordPresenter;
+import com.robpercival.demoapp.rest.dto.user.UserDTO;
+import com.robpercival.demoapp.services.FirebaseIDService;
+import com.robpercival.demoapp.state.ApplicationState;
+
+import java.io.IOException;
 
 /**
  * Created by User on 6/10/2018.
@@ -137,6 +143,32 @@ public class ChangePasswordActivity extends AppCompatActivity implements ChangeP
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.logout_menu, menu);
+
+
+        MenuItem logoutMenu = menu.getItem(0);
+
+        logoutMenu.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                Intent login = new Intent(ChangePasswordActivity.this, LoginActivity.class);
+                ChangePasswordActivity.this.startActivity(login);
+
+                UserDTO dto = (UserDTO) ApplicationState.getInstance().getItem("UserDTO");
+
+                FirebaseIDService.unsubscribe(dto.getUserId());
+                try {
+                    FirebaseInstanceId.getInstance().deleteInstanceId();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                ApplicationState.getInstance().clear();
+
+                return true;
+            }
+        });
+
+
         return true;
     }
 
@@ -164,9 +196,6 @@ public class ChangePasswordActivity extends AppCompatActivity implements ChangeP
                 intent = new Intent(ChangePasswordActivity.this, MyReservationsActivity.class);
                 ChangePasswordActivity.this.startActivity(intent);
                 //MainActivity.this.finish();
-                break;
-            case R.id.nav_menu3:
-                //rad sa mapom implementirati - da se otvori mapa sa svim restoranima u tom gradu
                 break;
             case R.id.nav_menu4:
                return;
