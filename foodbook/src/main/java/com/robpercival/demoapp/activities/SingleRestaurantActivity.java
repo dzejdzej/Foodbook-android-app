@@ -77,7 +77,7 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_restaurant);
 
-        setTitle("Restaurant details");
+        setTitle(R.string.restaurantDetails);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -150,7 +150,7 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
                 ratingBar.setRating(0);
 
                 TextView text = (TextView) rankDialog.findViewById(R.id.rank_dialog_text1);
-                text.setText("Rate us");
+                text.setText(R.string.rateUs);
 
                 Button updateButton = (Button) rankDialog.findViewById(R.id.rank_dialog_button);
                 updateButton.setOnClickListener(new View.OnClickListener() {
@@ -174,14 +174,14 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
                     ((UserDTO)ApplicationState.getInstance().getItem("UserDTO")).getName(),
                     restaurantId);
         else
-            Toast.makeText(getApplicationContext(), "You can't post an empty comment.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.emptyComment, Toast.LENGTH_LONG).show();
     }
 
     private void rateRestaurant(float rating) {
         if (ratingBar.getRating() != 0) {
             presenter.rateRestaurant(Double.valueOf(rating), ((UserDTO)ApplicationState.getInstance().getItem("UserDTO")).getName(), restaurantId);
         } else {
-            Toast.makeText(getApplicationContext(), "You didn't choose you rating.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.didntChoose, Toast.LENGTH_LONG).show();
         }
 
     }
@@ -329,7 +329,7 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
 
 
         TextView openTextView = findViewById(R.id.singleRestaurantOpenTextView);
-        openTextView.setText("Open: 8AM - 10PM (OPEN NOW)");
+        openTextView.setText("8AM - 10PM (OPEN NOW)");
 
         TextView streetTextView = findViewById(R.id.singleRestaurantStreetTextView);
         streetTextView.setText("Street: Oxford rd. 23");
@@ -342,7 +342,7 @@ public class SingleRestaurantActivity extends AppCompatActivity implements OnMap
         ratingTextView.setText(s);
 
         Button reserveButton = findViewById(R.id.reserveButton);
-        reserveButton.setText("Reserve " + reservationRequest.getSeats() + " seats.");
+        reserveButton.setText(R.string.reserve + reservationRequest.getSeats() + R.string.seats);
     }
 
 

@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:id="@+id/rank_button"
-                    android:text="Rate us"
+                    android:text="@string/rateUs"
                     android:background="@color/colorCall"
                     android:textColor="@color/colorWhite" />
             </LinearLayout>
@@ -142,7 +142,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:gravity="top"
-                        android:hint="Enter comment"
+                        android:hint="@string/enterComment"
                         android:inputType="textMultiLine"
                         android:lines="3"
                         android:maxLines="6"
