@@ -43,4 +43,6 @@
     <string name="oldPassword">Stara sifra</string>
     <string name="newPassword">Nova sifra</string>
     <string name="repeatNewPassword">Ponivi novu sifru</string>
+    <string name="addComment">Dodaj komentar</string>
+    <string name="viewComments">Pogledaj komentare</string>
 </resources>
