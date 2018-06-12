@@ -75,7 +75,7 @@ import java.util.List;
                 super.deliverResult(myReservations);
             }
 
-            if(oldMyReservationList != null && oldMyReservationList != myReservations){
+            if(oldMyReservationList != myReservations){
                 mCursor.close();
             }
         }
