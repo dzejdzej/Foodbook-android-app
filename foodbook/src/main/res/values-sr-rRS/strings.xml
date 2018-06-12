@@ -52,5 +52,8 @@
     <string name="seats">sedista</string>
     <string name="enterComment">Unesite komentar</string>
     <string name="restaurantDetails">Detalji restorana</string>
+    <string name="inviteFriends">Pozovi prijatelje</string>
+    <string name="friendsEmail">Prijateljev email</string>
+    <string name="selectLanguage">Izaberi jezik</string>
 
 </resources>

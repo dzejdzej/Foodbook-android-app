@@ -52,5 +52,8 @@
     <string name="seats">seats</string>
     <string name="enterComment">Enter comment</string>
     <string name="restaurantDetails">Restaurant details</string>
+    <string name="inviteFriends">Invite friends</string>
+    <string name="friendsEmail">Friends email</string>
+    <string name="selectLanguage">Select language</string>
 
 </resources>

@@ -38,7 +38,7 @@ android:fitsSystemWindows="true">
                 android:inputType="textEmailAddress"
                 android:ems="10"
                 android:id="@+id/friendsEmail"
-                android:hint="Friends email" />
+                android:hint="@string/friendsEmail" />
         </android.support.design.widget.TextInputLayout>
 
         <Button

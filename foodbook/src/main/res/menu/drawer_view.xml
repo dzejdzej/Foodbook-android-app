@@ -20,7 +20,7 @@
 
         <item
             android:id="@+id/nav_menu3"
-            android:icon="@drawable/ic_search"
-            android:title="Languages" />
+            android:icon="@drawable/ic_language"
+            android:title="@string/language" />
     </group>
 </menu>
